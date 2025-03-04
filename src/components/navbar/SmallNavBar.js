@@ -33,7 +33,9 @@ export default function SmallNavBar() {
       <div className="grid grid-cols-4 p-2 pt-3 sm:hidden">
         <div className="col-span-1 flex flex-row items-center">
           <MenuIcon className="hover:cursor-pointer" onClick={toggleModal} />
-          <h1 className="text-xl sm:text-3xl">GoodsHub</h1>
+          <h1 className="text-xl sm:text-3xl text-blue-900 font-semibold">
+            GoodsHub
+          </h1>
         </div>
         <div className="col-span-2 text-center justify-items-end flex flex-row items-center justify-end -mx-8">
           <input
@@ -62,14 +64,16 @@ export default function SmallNavBar() {
             onClick={(e) => e.stopPropagation()} // Prevent closing on inner modal click
           >
             <div className="flex flex-row w-full justify-between">
-              <h1 className="text-2xl sm:text-3xl">GoodsHub</h1>
+              <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold">
+                GoodsHub
+              </h1>
               <button className="" onClick={toggleModal}>
                 <CloseIcon />
               </button>
             </div>
 
             {/* Menu Options */}
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-3 text-blue-900">
               <p className="hover:cursor-pointer text-lg">
                 Shop by Category <ArrowDropDownIcon />
               </p>

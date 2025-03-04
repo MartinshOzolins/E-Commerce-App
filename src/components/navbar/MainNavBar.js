@@ -25,7 +25,7 @@ export default function NavBar() {
       {/* Nabar from Small Screens */}
       <div className="grid grid-cols-4 p-2 hidden sm:grid">
         <div className="col-span-1 pl-1 md:pl-2 pt-2">
-          <h1 className="text-2xl sm:text-3xl ">GoodsHub</h1>
+          <h1 className="text-2xl sm:text-3xl text-blue-900 ">GoodsHub</h1>
         </div>
         <div className="col-span-2 text-center pt-4">
           <input
@@ -61,7 +61,7 @@ export default function NavBar() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row w-full justify-start pl-2 pt-2 space-x-5 hidden sm:flex">
+      <div className="flex flex-row w-full justify-start pl-2 pt-2 space-x-5 hidden sm:flex text-blue-900">
         <p className="hover:cursor-pointer">
           Shop by Category <ArrowDropDownIcon />
         </p>
@@ -69,7 +69,7 @@ export default function NavBar() {
         <p className="hover:cursor-pointer">Shipping</p>
         <p className="hover:cursor-pointer">Return Policy</p>
       </div>
-      <div className="h-[2px] bg-gray-300 w-full" />
+      <div className="h-[2px] bg-blue-800 w-full" />
     </>
   );
 }
