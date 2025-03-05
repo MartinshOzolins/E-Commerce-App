@@ -21,9 +21,11 @@ export async function fetchProduct(productId) {
   let baseURL = `https://dummyjson.com/products/${productId}`;
   const response = await fetch(baseURL);
   const data = await response.json();
+  // if status code not in range of 200-299
+  if (!response.ok) return { error: "Not found" };
+
   // if not found, api returns object with generic message in message property
   if (data.message) return { error: data.message };
-
   // if product found
   return { product: data };
 }
