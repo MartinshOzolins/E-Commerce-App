@@ -30,14 +30,14 @@ export default function SmallNavBar() {
   return (
     <>
       {/* For Mobile Screens */}
-      <div className="grid grid-cols-4 p-2 pt-3 sm:hidden">
+      <div className="grid grid-cols-3 p-2 pt-3 sm:hidden">
         <div className="col-span-1 flex flex-row items-center">
           <MenuIcon className="hover:cursor-pointer" onClick={toggleModal} />
           <h1 className="text-xl sm:text-3xl text-blue-900 font-semibold">
             GoodsHub
           </h1>
         </div>
-        <div className="col-span-2 text-center justify-items-end flex flex-row items-center justify-end -mx-8">
+        <div className="col-span-2 text-center flex flex-row items-center justify-center ">
           <input
             type="text"
             className="border border-gray-400 px-1 py-1 h-7 w-2/3 outline-none"
@@ -48,11 +48,9 @@ export default function SmallNavBar() {
             sx={{ width: "24px" }}
             className="w-1/3 hover:cursor-pointer"
           />
-        </div>
-        <div className="col-span-1 flex justify-end items-center">
           <ShoppingCartIcon
             sx={{ width: "24px" }}
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer ml-auto"
           />
         </div>
       </div>
