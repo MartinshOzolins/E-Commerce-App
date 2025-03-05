@@ -6,18 +6,8 @@ import Image from "next/image";
 // MUI components
 import { Rating } from "@mui/material";
 
-const fixRatingValue = (rating) => {
-  //converts from string to number
-  const numericRating = parseFloat(rating);
-
-  // gets first and second parts of rating
-  const integerPart = Math.floor(numericRating);
-  const decimalPart = numericRating - integerPart;
-
-  if (decimalPart >= 0.75) return integerPart + 1;
-  if (decimalPart >= 0.35 && decimalPart < 0.75) return integerPart + 0.5;
-  return integerPart;
-};
+// helper function
+import { fixRatingValue } from "@/app/utils/fixRatingValue";
 
 export default function SingleProductCard({ product }) {
   const rating = fixRatingValue(String(product.rating));

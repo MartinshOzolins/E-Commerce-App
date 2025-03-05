@@ -69,7 +69,7 @@ export default function NavBar() {
         <p className="hover:cursor-pointer">Shipping</p>
         <p className="hover:cursor-pointer">Return Policy</p>
       </div>
-      <div className="h-[2px] bg-blue-800 w-full" />
+      <div className="h-[2px] bg-blue-100 w-full" />
     </>
   );
 }

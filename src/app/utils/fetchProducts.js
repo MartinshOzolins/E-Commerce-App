@@ -1,5 +1,6 @@
 //# Fetch API for retrieving products
 
+// api function to fetch all products
 export async function fetchProducts({ category, sortBy, order }) {
   let baseURL = "https://dummyjson.com/products";
   if (category) baseURL = `${baseURL}/category/${category}`;
@@ -13,4 +14,16 @@ export async function fetchProducts({ category, sortBy, order }) {
       }`,
     };
   return { products: data.products };
+}
+
+// api function to fetch a single product
+export async function fetchProduct(productId) {
+  let baseURL = `https://dummyjson.com/products/${productId}`;
+  const response = await fetch(baseURL);
+  const data = await response.json();
+  // if not found, api returns object with generic message in message property
+  if (data.message) return { error: data.message };
+
+  // if product found
+  return { product: data };
 }
