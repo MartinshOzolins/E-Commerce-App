@@ -2,21 +2,29 @@
 
 // api functions
 import { fetchProducts } from "@/app/utils/fetchProducts";
+import LoadMore from "@/components/LoadMore";
 
 //components
 import SortingFilters from "@/components/SearchFilters";
 import SingleProductCard from "@/components/SingleProductCard";
 
-export default async function ProductCatalog({ params }) {
-  //extracts url params
+export default async function ProductCatalog({ params, searchParams }) {
+  //extracts url params /params
   const { slug } = await params;
-
-  // fetches all products
+  // extracts searchParams ?param=value
+  const sortingParams = await searchParams;
+  let sortValue;
+  // extracts sortBy params
+  if (sortingParams) {
+    sortValue = sortingParams.sortBy;
+  }
+  // fetches all products based on params
   const { products, error } = await fetchProducts({
-    category: slug?.[0] || undefined,
-    sortBy: slug?.[1] || undefined,
-    order: slug?.[2] || undefined,
+    category: slug?.[0] || null,
+    sortBy: sortValue || null,
+    skipped: 30,
   });
+
   return (
     <>
       {error ? (
@@ -36,6 +44,7 @@ export default async function ProductCatalog({ params }) {
               <SingleProductCard key={product.id} product={product} />
             ))}
           </div>
+          <LoadMore />
         </>
       ) : null}
     </>
