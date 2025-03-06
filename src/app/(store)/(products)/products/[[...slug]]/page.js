@@ -1,7 +1,7 @@
 //# Catalog page (Product Listings)
 
 // api functions
-import { fetchProducts } from "@/app/utils/fetchProducts";
+import { fetchProducts } from "@/app/utils/fetchFunctions";
 import LoadMore from "@/components/LoadMore";
 
 //components
@@ -18,11 +18,12 @@ export default async function ProductCatalog({ params, searchParams }) {
   if (sortingParams) {
     sortValue = sortingParams.sortBy;
   }
+
   // fetches all products based on params
   const { products, error } = await fetchProducts({
     category: slug?.[0] || null,
     sortBy: sortValue || null,
-    skipped: 30,
+    skipped: 0,
   });
 
   return (

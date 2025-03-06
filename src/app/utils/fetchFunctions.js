@@ -2,7 +2,7 @@
 
 // api function to fetch all products
 export async function fetchProducts({ category, sortBy, skipped }) {
-  let baseURL = "https://dummyjson.com/products?limit=30";
+  let baseURL = "https://dummyjson.com/products";
   // category filtering
   if (category) baseURL = `${baseURL}/category/${category}`;
   // sorting params
@@ -37,10 +37,10 @@ export async function fetchProducts({ category, sortBy, skipped }) {
     order = "desc";
     baseURL = `${baseURL}&sortBy=${sortBy}&order=${order}`;
   }
-
   // adds skipping
-  baseURL = baseURL + `&skip=${skipped}`;
+  baseURL = baseURL + `?skip=${skipped}&limit=30`;
   // fetching
+
   const response = await fetch(baseURL);
   const data = await response.json();
 
@@ -73,4 +73,14 @@ export async function fetchProduct(productId) {
   if (data.message) return { error: data.message };
   // if product found
   return { product: data };
+}
+
+// fetch available categories
+export async function fetchCategories() {
+  const response = await fetch("https://dummyjson.com/products/categories");
+  const data = await response.json();
+  // if status code not in range of 200-299
+  if (!response.ok) return { error: "Not found" };
+
+  return { categories: data };
 }

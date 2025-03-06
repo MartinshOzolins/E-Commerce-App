@@ -1,7 +1,7 @@
 // # Server Component for catalog grid
 
 // api functions
-import { fetchProducts } from "@/app/utils/fetchProducts";
+import { fetchProducts } from "@/app/utils/fetchFunctions";
 import LoadMore from "@/components/LoadMore";
 
 //components

@@ -3,7 +3,7 @@
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { fetchProducts } from "@/app/utils/fetchProducts";
+import { fetchProducts } from "@/app/utils/fetchFunctions";
 import { useParams, useSearchParams } from "next/navigation";
 
 import SingleProductCard from "./SingleProductCard";

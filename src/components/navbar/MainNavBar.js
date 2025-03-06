@@ -3,7 +3,6 @@
 // mui components
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SmallNavBar from "./SmallNavBar";
 
 //Clerk components
@@ -17,11 +16,18 @@ import {
 //Next.js components
 import Link from "next/link";
 
-export default function NavBar() {
+// api func
+import { fetchCategories } from "@/app/utils/fetchFunctions";
+import CategoryFilter from "../filters/categoryFilter";
+
+export default async function NavBar() {
+  // fetch available categories
+  const { categories } = await fetchCategories();
+
   return (
     <>
       {/* Navbar for Small Screens */}
-      <SmallNavBar />
+      <SmallNavBar categories={categories} />
       {/* Nabar from Small Screens */}
       <div className="grid grid-cols-4 p-2 hidden sm:grid">
         <div className="col-span-1 pl-1 md:pl-2 pt-2">
@@ -62,12 +68,16 @@ export default function NavBar() {
         </div>
       </div>
       <div className="flex flex-row w-full justify-start pl-2 pt-2 space-x-5 hidden sm:flex text-blue-900">
-        <p className="hover:cursor-pointer">
-          Shop by Category <ArrowDropDownIcon />
-        </p>
-        <p className="hover:cursor-pointer">Browse All Products</p>
-        <p className="hover:cursor-pointer">Shipping</p>
-        <p className="hover:cursor-pointer">Return Policy</p>
+        <CategoryFilter categories={categories} />
+        <Link href="/products" className="hover:cursor-pointer">
+          Browse All Products
+        </Link>
+        <Link href="/shipping" className="hover:cursor-pointer">
+          Shipping
+        </Link>
+        <Link href="/return-policy" className="hover:cursor-pointer">
+          Return Policy
+        </Link>
       </div>
       <div className="h-[2px] bg-blue-100 w-full" />
     </>

@@ -4,7 +4,7 @@ import { Rating } from "@mui/material";
 import { fixRatingValue } from "@/app/utils/fixRatingValue";
 
 // api function
-import { fetchProduct } from "@/app/utils/fetchProducts";
+import { fetchProduct } from "@/app/utils/fetchFunctions";
 
 //components
 import SwiperComponent from "@/components/productDetailsComponents/Swiper";
