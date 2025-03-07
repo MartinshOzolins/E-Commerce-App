@@ -3,8 +3,9 @@
 // api function to fetch all products
 export async function fetchProducts({ category, sortBy, skipped }) {
   let baseURL = "https://dummyjson.com/products";
-  // category filtering
-  if (category) baseURL = `${baseURL}/category/${category}`;
+  // category filtering;
+  if (category)
+    baseURL = `${baseURL}/category/${category}?skip=${skipped}&limit=30`;
   // sorting params
   let order = "desc";
   let sortByValue;
@@ -37,10 +38,8 @@ export async function fetchProducts({ category, sortBy, skipped }) {
     order = "desc";
     baseURL = `${baseURL}&sortBy=${sortBy}&order=${order}`;
   }
-  // adds skipping
-  baseURL = baseURL + `?skip=${skipped}&limit=30`;
+  console.log(baseURL);
   // fetching
-
   const response = await fetch(baseURL);
   const data = await response.json();
 

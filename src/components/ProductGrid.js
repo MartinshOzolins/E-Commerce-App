@@ -5,7 +5,7 @@ import { fetchProducts } from "@/app/utils/fetchFunctions";
 import LoadMore from "@/components/LoadMore";
 
 //components
-import SortingFilters from "@/components/SearchFilters";
+import SortingFilters from "@/components/filters/SearchFilters";
 import SingleProductCard from "@/components/SingleProductCard";
 
 export default function ProductGrid({ products }) {

@@ -5,7 +5,7 @@ import { fetchProducts } from "@/app/utils/fetchFunctions";
 import LoadMore from "@/components/LoadMore";
 
 //components
-import SortingFilters from "@/components/SearchFilters";
+import SortingFilters from "@/components/filters/SearchFilters";
 import SingleProductCard from "@/components/SingleProductCard";
 
 export default async function ProductCatalog({ params, searchParams }) {
@@ -18,7 +18,6 @@ export default async function ProductCatalog({ params, searchParams }) {
   if (sortingParams) {
     sortValue = sortingParams.sortBy;
   }
-
   // fetches all products based on params
   const { products, error } = await fetchProducts({
     category: slug?.[0] || null,
