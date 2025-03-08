@@ -6,6 +6,7 @@ export async function fetchProducts({ category, sortBy, skipped }) {
   // category filtering;
   if (category)
     baseURL = `${baseURL}/category/${category}?skip=${skipped}&limit=30`;
+  if (!category) baseURL = `${baseURL}?skip=${skipped}&limit=30`;
   // sorting params
   let order = "desc";
   let sortByValue;

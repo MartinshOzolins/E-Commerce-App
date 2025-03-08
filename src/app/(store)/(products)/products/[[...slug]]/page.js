@@ -38,7 +38,10 @@ export default async function ProductCatalog({ params, searchParams }) {
       ) : null}
       {products ? (
         <>
-          <SortingFilters />
+          <SortingFilters
+            currParams={slug?.[0]}
+            currSearchParams={sortingParams}
+          />
           <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center p-3 pt-3">
             {products.map((product) => (
               <SingleProductCard key={product.id} product={product} />
