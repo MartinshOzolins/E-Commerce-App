@@ -5,10 +5,10 @@ import { useState } from "react";
 // mui components
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
+// components
+import CategoryFilter from "../filters/CategoryFilter";
 // Clerk
 import {
   SignedIn,
@@ -19,35 +19,30 @@ import {
 
 // Next.js components
 import Link from "next/link";
+import SearchFilter from "../filters/SearchFilter";
 
-export default function SmallNavBar() {
+export default function SmallNavBar({ categories }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   // Toggle the modal state when the menu icon is clicked
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
+  const toggleModal = (action) => {
+    setModalOpen(action);
   };
   return (
     <>
       {/* For Mobile Screens */}
       <div className="grid grid-cols-3 p-2 pt-3 sm:hidden">
         <div className="col-span-1 flex flex-row items-center">
-          <MenuIcon className="hover:cursor-pointer" onClick={toggleModal} />
+          <MenuIcon
+            className="hover:cursor-pointer"
+            onClick={() => toggleModal(true)}
+          />
           <h1 className="text-xl sm:text-3xl text-blue-900 font-semibold">
             GoodsHub
           </h1>
         </div>
         <div className="col-span-2 text-center flex flex-row items-center justify-center ">
-          <input
-            type="text"
-            className="border border-gray-400 px-1 py-1 h-7 w-2/3 outline-none"
-            style={{ maxWidth: "480px" }}
-            placeholder="Search products..."
-          />
-          <SearchIcon
-            sx={{ width: "24px" }}
-            className="w-1/3 hover:cursor-pointer"
-          />
+          <SearchFilter searchIconSize="24px" />
           <ShoppingCartIcon
             sx={{ width: "24px" }}
             className="hover:cursor-pointer ml-auto"
@@ -62,30 +57,58 @@ export default function SmallNavBar() {
             onClick={(e) => e.stopPropagation()} // Prevent closing on inner modal click
           >
             <div className="flex flex-row w-full justify-between">
-              <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold">
-                GoodsHub
-              </h1>
-              <button className="" onClick={toggleModal}>
+              <Link
+                href="/"
+                className="hover:cursor-pointer"
+                onClick={() => toggleModal(false)}
+              >
+                <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold">
+                  GoodsHub
+                </h1>
+              </Link>
+
+              <button className="" onClick={() => toggleModal(false)}>
                 <CloseIcon />
               </button>
             </div>
 
             {/* Menu Options */}
-            <div className="flex flex-col space-y-3 text-blue-900">
-              <p className="hover:cursor-pointer text-lg">
-                Shop by Category <ArrowDropDownIcon />
-              </p>
-              <p className="hover:cursor-pointer text-lg">
+            <div className="flex flex-col space-y-3 text-blue-900 text-md">
+              <CategoryFilter
+                categories={categories}
+                toggleModal={toggleModal}
+              />
+              <Link
+                href="/products"
+                className="hover:cursor-pointer"
+                onClick={() => toggleModal(false)}
+              >
                 Browse All Products
-              </p>
-              <p className="hover:cursor-pointer text-lg">Shipping</p>
-              <p className="hover:cursor-pointer text-lg">Return Policy</p>
+              </Link>
+              <Link
+                href="/shipping-information"
+                className="hover:cursor-pointer"
+                onClick={() => toggleModal(false)}
+              >
+                Shipping
+              </Link>
+              <Link
+                href="/return-policy"
+                className="hover:cursor-pointer"
+                onClick={() => toggleModal(false)}
+              >
+                Return Policy
+              </Link>
               <div>
                 <SignedOut>
-                  <SignInButton className="text-lg">Sign In</SignInButton>
+                  <SignInButton className="hover:cursor-pointer">
+                    Sign In
+                  </SignInButton>
                 </SignedOut>
                 <SignedIn>
-                  <SignOutButton className="text-lg">Sign In</SignOutButton>
+                  <SignOutButton className="hover:cursor-pointer">
+                    Sign In
+                  </SignOutButton>
                   <Link href="/user-profile">Profile</Link>
                 </SignedIn>
               </div>

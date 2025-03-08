@@ -2,26 +2,24 @@
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-//Next.js components
-import Link from "next/link";
-
 import { useRouter } from "next/navigation";
 
-export default function CategoryFilter({ categories }) {
+export default function CategoryFilter({ categories, toggleModal }) {
   const router = useRouter();
   return (
-    <div className="relative w-45 text-xl select-box bottom-1">
+    <div className="relative w-47 text-xl select-box bottom-1">
       <select
         id="select"
-        className=" w-full text-sm pl-3 pr-10 transition duration-300 ease-in-out cursor-pointer appearance-none focus:outline-none"
+        className=" w-full pr-10 transition duration-300 ease-in-out cursor-pointer appearance-none focus:outline-none"
         style={{ fontSize: "1rem" }}
-        onChange={(e) =>
+        onChange={(e) => {
           e.target.value === ""
             ? null
-            : router.push(`/products/${e.target.value}`)
-        }
+            : router.push(`/products/${e.target.value}`);
+          if (toggleModal) toggleModal(false);
+        }}
       >
-        <option value="">Browse Category</option>
+        <option value="">Shop by Category</option>
         {categories.map((category) => (
           <option key={category.slug} value={category.slug}>
             {category.name}

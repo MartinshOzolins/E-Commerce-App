@@ -3,7 +3,7 @@
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { fetchProducts } from "@/app/utils/fetchFunctions";
+import { fetchInputSearch, fetchProducts } from "@/app/utils/fetchFunctions";
 import { useParams, useSearchParams } from "next/navigation";
 
 import SingleProductCard from "./SingleProductCard";
@@ -13,7 +13,7 @@ function LoadMore() {
   const [products, setProducts] = useState([]);
   const [isNext, setIsNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [productsSkipped, setProductsSkipped] = useState(30); // State instead of global variable
+  const [productsSkipped, setProductsSkipped] = useState(0); // State instead of global variable
 
   // Extracts existing URL params and search params
   const { slug } = useParams();
@@ -21,22 +21,43 @@ function LoadMore() {
 
   // Fetch function moved outside useEffect
   const fetchFunction = async () => {
-    if (!isNext || isLoading) return; // Prevent multiple requests
+    if (!isNext || isLoading) return; // Prevents multiple requests
 
     setIsLoading(true);
-    const {
-      error,
-      isNextAvailable,
-      products: newProducts,
-    } = await fetchProducts({
-      category: slug?.[0] || null,
-      sortBy: searchParams.get("sortBy") || null,
-      skipped: productsSkipped + 30,
-    });
-    if (!error && newProducts.length > 0) {
-      setProducts((prev) => [...prev, ...newProducts]); // Proper spread
-      setProductsSkipped((prev) => prev + 30); // Increase count
+
+    // Check if search query exists
+    const queryParam = searchParams.get("q"); // input search adds q=value to the urlSearchParams
+    const category = slug?.[0] || null;
+    const sortBy = searchParams.get("sortBy") || null;
+
+    let newProducts = [];
+    let isNextAvailable = true;
+
+    if (queryParam) {
+      // Use search query if available
+      const response = await fetchInputSearch({
+        input: queryParam,
+        sortBy,
+        skipped: productsSkipped + 15,
+      });
+      newProducts = response.products || [];
+      isNextAvailable = response.isNextAvailable || true;
+    } else {
+      // Otherwise, use category-based fetch
+      const response = await fetchProducts({
+        category,
+        sortBy,
+        skipped: productsSkipped + 15,
+      });
+      newProducts = response.products || [];
+      isNextAvailable = response.isNextAvailable || true;
     }
+
+    if (newProducts.length > 0) {
+      setProducts((prev) => [...prev, ...newProducts]);
+      setProductsSkipped((prev) => prev + 15); // Increase skipped count
+    }
+
     if (!isNextAvailable) setIsNext(false);
     setIsLoading(false);
   };

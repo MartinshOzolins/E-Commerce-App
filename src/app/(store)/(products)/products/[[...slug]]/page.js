@@ -1,11 +1,11 @@
 //# Catalog page (Product Listings)
 
 // api functions
-import { fetchProducts } from "@/app/utils/fetchFunctions";
+import { fetchInputSearch, fetchProducts } from "@/app/utils/fetchFunctions";
 import LoadMore from "@/components/LoadMore";
 
 //components
-import SortingFilters from "@/components/filters/SearchFilters";
+import SortingFilters from "@/components/filters/SortingFilters";
 import SingleProductCard from "@/components/SingleProductCard";
 
 export default async function ProductCatalog({ params, searchParams }) {
@@ -13,17 +13,31 @@ export default async function ProductCatalog({ params, searchParams }) {
   const { slug } = await params;
   // extracts searchParams ?param=value
   const sortingParams = await searchParams;
-  let sortValue;
+
   // extracts sortBy params
+  let sortByValue;
   if (sortingParams) {
-    sortValue = sortingParams.sortBy;
+    sortByValue = sortingParams.sortBy;
   }
-  // fetches all products based on params
-  const { products, error } = await fetchProducts({
-    category: slug?.[0] || null,
-    sortBy: sortValue || null,
-    skipped: 0,
-  });
+  let inputSearchValue;
+  if (sortingParams.q) {
+    inputSearchValue = sortingParams.q;
+  }
+
+  // if inputSearchValue exists, we use input based fetching, otherwise fetchProducts based on params and sorting filters
+  const { products, error } = inputSearchValue
+    ? await fetchInputSearch({
+        input: inputSearchValue,
+        sortBy: sortByValue || null,
+        skipped: 0,
+      })
+    : await fetchProducts({
+        category: slug?.[0] || null,
+        sortBy: sortByValue || null,
+        skipped: 0,
+      });
+
+  // fetches all products based on urlParams
 
   return (
     <>
