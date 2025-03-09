@@ -40,17 +40,20 @@ function LoadMore() {
         sortBy,
         skipped: productsSkipped + 15,
       });
+
       newProducts = response.products || [];
-      isNextAvailable = response.isNextAvailable || true;
+      isNextAvailable = response.isNextAvailable;
     } else {
       // Otherwise, use category-based fetch
+
       const response = await fetchProducts({
         category,
         sortBy,
         skipped: productsSkipped + 15,
       });
+
       newProducts = response.products || [];
-      isNextAvailable = response.isNextAvailable || true;
+      isNextAvailable = response.isNextAvailable;
     }
 
     if (newProducts.length > 0) {

@@ -39,18 +39,9 @@ export async function fetchProducts({ category, sortBy, skipped }) {
     order = "desc";
     baseURL = `${baseURL}&sortBy=${sortBy}&order=${order}`;
   }
-
   // fetching
   const response = await fetch(baseURL);
   const data = await response.json();
-
-  // for products page, to showcase error message (Not used to showcase in LoadMore component, just to check if error exists)
-  if (!data.products || data.products.length === 0)
-    return {
-      error: `Sorry, we couldn't find any results for ${
-        category || "such query"
-      }`,
-    };
 
   // for LoadMore to check if can fetch again
   // checks if can be fetched agains
@@ -59,6 +50,13 @@ export async function fetchProducts({ category, sortBy, skipped }) {
       isNextAvailable: false,
     };
   }
+  // for products page, to showcase error message (Not used to showcase in LoadMore component, just to check if error exists)
+  if (!data.products || data.products.length === 0)
+    return {
+      error: `Sorry, we couldn't find any results for ${
+        category || "such query"
+      }`,
+    };
 
   return { products: data.products, isNextAvailable: true };
 }
@@ -114,7 +112,6 @@ export async function fetchInputSearch({ input, sortBy, skipped }) {
     baseURL = `${baseURL}&sortBy=${sortBy}&order=${order}`;
   }
 
-  console.log(baseURL);
   // fetching
   const response = await fetch(baseURL);
   const data = await response.json();
@@ -122,17 +119,19 @@ export async function fetchInputSearch({ input, sortBy, skipped }) {
   // if status code not in range of 200-299
   if (!response.ok) return { error: "Not found" };
 
-  // if not found
-  if (!data.products || data.products.length === 0)
-    return {
-      error: `Sorry, we couldn't find any results for ${input || "such query"}`,
-    };
   // if skipped more than available, return that no products left
   if (data.total < skipped) {
     return {
       isNextAvailable: false,
     };
   }
+
+  // if not found
+  if (!data.products || data.products.length === 0)
+    return {
+      error: `Sorry, we couldn't find any results for ${input || "such query"}`,
+    };
+
   return { products: data.products, isNextAvailable: true };
 }
 
