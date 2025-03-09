@@ -143,9 +143,11 @@ export default function CartModal() {
             <span>Total:</span>
             <span>${total}</span>
           </div>
-          <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-white hover:text-blue-900 transition hover:cursor-pointer hover:border hover:border-blue-900">
-            Checkout
-          </button>
+          <Link href="/checkout">
+            <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-white hover:text-blue-900 transition hover:cursor-pointer hover:border hover:border-blue-900">
+              Checkout
+            </button>
+          </Link>
         </div>
       </div>
     </>
