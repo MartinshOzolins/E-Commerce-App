@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import MainNavBar from "../components/navbar/MainNavBar";
+import MainNavBar from "../../components/navbar/MainNavBar";
 import "./globals.css";
+import CartContextProvider from "../../contexts/CartContextProvider";
 
 export const metadata = {
   title: "GoodsHub Store | All-in-One",
@@ -10,14 +11,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className="w-screen h-screen box-border">
-          {" "}
-          <MainNavBar />
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <CartContextProvider>
+      <ClerkProvider>
+        <html lang="en">
+          <body className="w-screen h-screen box-border">
+            {" "}
+            <MainNavBar />
+            {children}
+          </body>
+        </html>
+      </ClerkProvider>
+    </CartContextProvider>
   );
 }

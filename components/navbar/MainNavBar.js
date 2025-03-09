@@ -1,9 +1,5 @@
 // # Server Component (Handles auth state & cart updates)
 
-// mui components
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import SmallNavBar from "./SmallNavBar";
-
 // components
 import SearchFilter from "../filters/SearchFilter";
 
@@ -21,7 +17,10 @@ import Link from "next/link";
 // api func
 import { fetchCategories } from "@/app/utils/fetchFunctions";
 
+// components
+import SmallNavBar from "./SmallNavBar";
 import CategoryFilter from "../filters/CategoryFilter";
+import CartIcon from "../cart/CartIcon";
 
 export default async function NavBar() {
   // fetch available categories
@@ -54,10 +53,8 @@ export default async function NavBar() {
                 Profile
               </Link>
             </SignedIn>
-            <ShoppingCartIcon
-              sx={{ width: "24px" }}
-              className="hover:cursor-pointer"
-            />
+            {/* Cart Items count and it includes Modal */}
+            <CartIcon />
           </div>
         </div>
       </div>

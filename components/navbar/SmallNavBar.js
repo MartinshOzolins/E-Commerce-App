@@ -21,6 +21,9 @@ import {
 import Link from "next/link";
 import SearchFilter from "../filters/SearchFilter";
 
+// components
+import CartIcon from "../cart/CartIcon";
+
 export default function SmallNavBar({ categories }) {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -43,10 +46,8 @@ export default function SmallNavBar({ categories }) {
         </div>
         <div className="col-span-2 text-center flex flex-row items-center justify-center ">
           <SearchFilter searchIconSize="24px" />
-          <ShoppingCartIcon
-            sx={{ width: "24px" }}
-            className="hover:cursor-pointer ml-auto"
-          />
+          {/* Cart Items count and it includes Modal that opens if isCartOpen => true*/}
+          <CartIcon />
         </div>
       </div>
       {/* Full-Screen Modal for Small Screens */}

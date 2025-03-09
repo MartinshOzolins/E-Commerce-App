@@ -7,10 +7,11 @@ import { fixRatingValue } from "@/app/utils/fixRatingValue";
 import { fetchProduct } from "@/app/utils/fetchFunctions";
 
 //components
-import SwiperComponent from "@/components/productDetailsComponents/Swiper";
+import SwiperComponent from "../../../../../../components/productDetailsComponents/Swiper";
 
 //Next.js functions
 import { notFound } from "next/navigation";
+import AddButton from "../../../../../../components/productDetailsComponents/AddButton";
 
 export default async function SingleProductDetails({ params }) {
   const { productId } = await params;
@@ -25,7 +26,7 @@ export default async function SingleProductDetails({ params }) {
   const rating = fixRatingValue(product.rating);
 
   return (
-    <div className="flex flex-col w-full h-full  p-2 mt-5 ">
+    <div className="flex flex-col w-full h-full px-2 mt-5 ">
       <SwiperComponent product={product} />
       <div className="flex flex-col text-base px-3">
         <div className="flex flex-col w-full justify-start pb-2">
@@ -46,9 +47,7 @@ export default async function SingleProductDetails({ params }) {
         <div className="flex flex-col justify-center w-full pt-3">
           <p className="text-center text-lg font-semibold">${product.price}</p>
           <div className="w-full flex justify-center items-center mt-2">
-            <button className="w-full py-3 px-3 bg-blue-900 text-white hover:bg-blue-700 transition">
-              ADD TO BASKET
-            </button>
+            <AddButton product={product} />
           </div>
         </div>
       </div>
@@ -79,7 +78,7 @@ export default async function SingleProductDetails({ params }) {
         {product.reviews.length > 0 && (
           <>
             <div className="w-full h-[1px] bg-gray-400 mb-3"></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
               {product.reviews.map((review, index) => (
                 <div key={index} className="p-2 border border-gray-300">
                   <Rating

@@ -2,11 +2,11 @@
 
 // api functions
 import { fetchProducts } from "@/app/utils/fetchFunctions";
-import LoadMore from "@/components/LoadMore";
+import LoadMore from "./LoadMore";
 
 //components
 import SortingFilters from "@/components/filters/SearchFilters";
-import SingleProductCard from "@/components/SingleProductCard";
+import SingleProductCard from "./SingleProductCard";
 
 export default function ProductGrid({ products }) {
   return (

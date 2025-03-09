@@ -2,11 +2,11 @@
 
 // api functions
 import { fetchInputSearch, fetchProducts } from "@/app/utils/fetchFunctions";
-import LoadMore from "@/components/LoadMore";
+import LoadMore from "../../../../../../components/LoadMore";
 
 //components
-import SortingFilters from "@/components/filters/SortingFilters";
-import SingleProductCard from "@/components/SingleProductCard";
+import SortingFilters from "../../../../../../components/filters/SortingFilters";
+import SingleProductCard from "../../../../../../components/SingleProductCard";
 
 export default async function ProductCatalog({ params, searchParams }) {
   //extracts url params /params

@@ -7,7 +7,7 @@ import { useActionState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 
 // server actions
-import { validateInput } from "../../../actions/actions";
+import { validateInput } from "../../actions/actions";
 
 // Next.js functions
 import { notFound } from "next/navigation";
