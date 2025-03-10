@@ -7,7 +7,7 @@ import { useActionState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 
 // server actions
-import { validateInput } from "../../actions/actions";
+import { validateSearchInput } from "../../actions/actions";
 
 // Next.js functions
 import { notFound } from "next/navigation";
@@ -15,11 +15,11 @@ import { notFound } from "next/navigation";
 export default function SearchFilter({ searchIconSize }) {
   const [state, formAction, isPending] = useActionState(handleSubmit, {});
 
-  async function handleSubmit(prevState, formData) {
+  function handleSubmit(prevState, formData) {
     const input = formData.get("input");
     if (!input) return;
 
-    const response = await validateInput(input);
+    const response = validateSearchInput(input);
     if (response.error) return notFound();
   }
 

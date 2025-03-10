@@ -20,16 +20,6 @@ export default function CartModal() {
   const { cartItems, setCartItems, isCartOpen, setIsCartOpen } =
     useCartContext();
 
-  const updateQuantity = (id, change) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    );
-  };
-
   const removeItem = (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
@@ -143,7 +133,7 @@ export default function CartModal() {
             <span>Total:</span>
             <span>${total}</span>
           </div>
-          <Link href="/checkout">
+          <Link href="/checkout" onClick={() => setIsCartOpen(false)}>
             <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-white hover:text-blue-900 transition hover:cursor-pointer hover:border hover:border-blue-900">
               Checkout
             </button>

@@ -62,14 +62,14 @@ export default function AddressForm({ state, setState }) {
         />
       </div>
       <div className="flex flex-col w-[500px]">
-        <label className="text-sm text-gray-600" htmlFor="eircode">
-          Eircode
+        <label className="text-sm text-gray-600" htmlFor="postcode">
+          Postcode
         </label>
         <input
           className="border px-2 py-1 rounded w-[400px] w-full"
-          name="eircode"
-          id="eircode"
-          value={state.eircode}
+          name="postcode"
+          id="postcode"
+          value={state.postcode}
           onChange={(e) => setState(e)}
         />
       </div>

@@ -24,8 +24,7 @@ export default function CheckoutPage() {
   const { cartItems } = useCartContext();
 
   // State for confirming address and billing address
-  const [confirmAddress, setConfirmAddress] = useState(false);
-  const [sameAsDelivery, setSameAsDelivery] = useState(false);
+  const [sameAsDelivery, setSameAsDelivery] = useState(true);
 
   // Form state
   const [address, setAddress] = useState({
@@ -34,25 +33,18 @@ export default function CheckoutPage() {
     town: "",
     city: "",
     county: "",
-    eircode: "",
+    postcode: "",
     country: "",
   });
   const [billingAddress, setBillingAddress] = useState({
+    isBillingAddressTheSame: sameAsDelivery,
     houseInfo: "",
     streetName: "",
     town: "",
     city: "",
     county: "",
-    eircode: "",
+    postcode: "",
     country: "",
-  });
-
-  const [cardInfo, setCardInfo] = useState({
-    cardHolder: "",
-    cardNumber: "",
-    expiryDate: "",
-    securityCode: "",
-    isBillingAddressTheSame: sameAsDelivery,
   });
 
   // Handles address input change
@@ -73,13 +65,20 @@ export default function CheckoutPage() {
     }));
   };
 
-  // Handles card info input change
-  const handleCardInfoChange = (e) => {
-    const { name, value } = e.target;
-    setCardInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  // Handles card expiry date info input change
+  const [expiry, setExpiry] = useState("");
+
+  const handleExpiryChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // removes non-digit ch
+
+    if (value.length > 4) value = value.slice(0, 4); // max 4 characters
+
+    if (value.length >= 3) {
+      // Formats MM/YY by adding slash after 2nd character
+      value = value.slice(0, 2) + "/" + value.slice(2);
+    }
+
+    setExpiry(value);
   };
 
   // Handle confirm address button
@@ -94,11 +93,11 @@ export default function CheckoutPage() {
       setBillingAddress(address); // Copy delivery address to billing if checked
     }
   };
-
-  // //const [state, formAction, isPending] = useActionState(
-  //   validateCheckoutInput,
-  //   initialState
-  // );
+  // form state
+  const [state, formAction, isPending] = useActionState(
+    validateCheckoutInput.bind(null, cartItems, address, billingAddress),
+    {}
+  );
 
   if (!user) {
     return <RedirectToSignIn />;
@@ -123,100 +122,94 @@ export default function CheckoutPage() {
             Delivery
           </h2>
           <AddressForm state={address} setState={handleAddressChange} />
-          <button
-            type="button"
-            onClick={handleConfirmAddress}
-            className="bg-blue-900 text-white px-4 py-2 rounded mt-2 hover:bg-white hover:text-blue-900 hover:border hover:border-blue-900"
-          >
-            Confirm Address
-          </button>
         </div>
 
         {/* Payment Section */}
-        {confirmAddress && (
-          <div className="flex flex-col w-full bg-white px-2 py-2 rounded">
-            <h2 className="font-semibold border-b border-b-2 border-gray-300">
-              Payment
-            </h2>
-            <div className="flex flex-col items-start justify-center pt-2">
-              <p className="">Billing Address</p>
-              <div className="flex ">
-                <input
-                  type="checkbox"
-                  checked={sameAsDelivery}
-                  onChange={handleSameAsDeliveryChange}
-                  className="mr-2"
-                />
-                <label htmlFor="sameAsDelivery">
-                  Billing address same as delivery
-                </label>
-              </div>
-            </div>
-            {!sameAsDelivery && (
-              <AddressForm
-                state={billingAddress}
-                setState={handleBillingAddressChange}
+
+        <div className="flex flex-col w-full bg-white px-2 py-2 rounded">
+          <h2 className="font-semibold border-b border-b-2 border-gray-300">
+            Payment
+          </h2>
+          <div className="flex flex-col items-start justify-center pt-2">
+            <p className="">Billing Address</p>
+            <div className="flex ">
+              <input
+                type="checkbox"
+                checked={sameAsDelivery}
+                onChange={handleSameAsDeliveryChange}
+                className="mr-2"
               />
-            )}
-            <form className="flex flex-col space-y-2 pt-2 md:items-center w-full">
-              <p className="pt-2">Card Details</p>
-              <div className="flex flex-col w-[500px]">
-                <label className="text-sm text-gray-600" htmlFor="cardHolder">
-                  Card Holder
-                </label>
-                <input
-                  className="border px-2 py-1 rounded w-full"
-                  name="cardHolder"
-                  id="cardHolder"
-                  value={cardInfo.cardHolder}
-                  onChange={handleCardInfoChange}
-                />
-              </div>
-              <div className="flex flex-col w-[500px]">
-                <label className="text-sm text-gray-600" htmlFor="cardNumber">
-                  Card Number
-                </label>
-                <input
-                  className="border px-2 py-1 rounded w-full"
-                  name="cardNumber"
-                  id="cardNumber"
-                  value={cardInfo.cardNumber}
-                  onChange={handleCardInfoChange}
-                />
-              </div>
-              <div className="flex flex-col w-[500px]">
-                <label className="text-sm text-gray-600" htmlFor="expiryDate">
-                  Expiry Date
-                </label>
-                <input
-                  className="border px-2 py-1 rounded w-full"
-                  name="expiryDate"
-                  id="expiryDate"
-                  value={cardInfo.expiryDate}
-                  onChange={handleCardInfoChange}
-                />
-              </div>
-              <div className="flex flex-col w-[500px]">
-                <label className="text-sm text-gray-600" htmlFor="securityCode">
-                  Security Code
-                </label>
-                <input
-                  className="border px-2 py-1 rounded w-full"
-                  name="securityCode"
-                  id="securityCode"
-                  value={cardInfo.securityCode}
-                  onChange={handleCardInfoChange}
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-green-500 text-white px-4 py-2 rounded mt-2"
-              >
-                Place Order
-              </button>
-            </form>
+              <label htmlFor="sameAsDelivery">
+                Billing address same as delivery
+              </label>
+            </div>
           </div>
-        )}
+          {!sameAsDelivery && (
+            <AddressForm
+              state={billingAddress}
+              setState={handleBillingAddressChange}
+            />
+          )}
+          <form
+            className="flex flex-col space-y-2 pt-2 md:items-center w-full"
+            action={formAction}
+          >
+            <p className="pt-2">Card Details</p>
+            <div className="flex flex-col w-[500px]">
+              <label className="text-sm text-gray-600" htmlFor="cardHolder">
+                Card Holder
+              </label>
+              <input
+                type="text"
+                className="border px-2 py-1 rounded w-full"
+                name="cardHolder"
+                id="cardHolder"
+              />
+            </div>
+            <div className="flex flex-col w-[500px]">
+              <label className="text-sm text-gray-600" htmlFor="cardNumber">
+                Card Number
+              </label>
+              <input
+                className="border px-2 py-1 rounded w-full"
+                name="cardNumber"
+                id="cardNumber"
+              />
+            </div>
+            <div className="flex flex-col w-[500px]">
+              <label className="text-sm text-gray-600" htmlFor="expiryDate">
+                Expiry Date (MM/YY)
+              </label>
+              <input
+                type="text"
+                className="border px-2 py-1 rounded w-full"
+                name="expiryDate"
+                id="expiryDate"
+                value={expiry}
+                onChange={handleExpiryChange}
+                placeholder="MM/YY"
+                maxLength="5"
+              />
+            </div>
+            <div className="flex flex-col w-[500px]">
+              <label className="text-sm text-gray-600" htmlFor="securityCode">
+                Security Code
+              </label>
+              <input
+                type="number"
+                className="border px-2 py-1 rounded w-full"
+                name="securityCode"
+                id="securityCode"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+            >
+              Place Order
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
