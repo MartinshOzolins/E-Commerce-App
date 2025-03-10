@@ -27,7 +27,7 @@ export default function AddressForm({ state, setState }) {
       </div>
       <div className="flex flex-col w-[500px]">
         <label className="text-sm text-gray-600" htmlFor="town">
-          Town
+          Town (optional)
         </label>
         <input
           className="border px-2 py-1 rounded w-[400px] w-full"
@@ -51,7 +51,7 @@ export default function AddressForm({ state, setState }) {
       </div>
       <div className="flex flex-col w-[500px]">
         <label className="text-sm text-gray-600" htmlFor="county">
-          County
+          County (optional)
         </label>
         <input
           className="border px-2 py-1 rounded w-[400px]w-full"

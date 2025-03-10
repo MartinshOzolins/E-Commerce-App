@@ -6,15 +6,16 @@ import { RedirectToSignIn, useUser } from "@clerk/nextjs";
 // Cart context
 import { useCartContext } from "../../../../contexts/CartContextProvider";
 
-// react
+// React
 import { useState, useActionState } from "react";
 
 // Next.js components
 import Link from "next/link";
 
-// components
+// Components
 import AddressForm from "../../../../components/forms/AddressForm";
 import { validateCheckoutInput } from "../../../../actions/actions";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function CheckoutPage() {
   // User states
@@ -24,9 +25,9 @@ export default function CheckoutPage() {
   const { cartItems } = useCartContext();
 
   // State for confirming address and billing address
-  const [sameAsDelivery, setSameAsDelivery] = useState(true);
+  const [sameAsDelivery, setSameAsDelivery] = useState(false);
 
-  // Form state
+  // Form state for address and billing address
   const [address, setAddress] = useState({
     houseInfo: "",
     streetName: "",
@@ -69,7 +70,7 @@ export default function CheckoutPage() {
   const [expiry, setExpiry] = useState("");
 
   const handleExpiryChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // removes non-digit ch
+    let value = e.target.value.replace(/\D/g, ""); // removes non-digit chars
 
     if (value.length > 4) value = value.slice(0, 4); // max 4 characters
 
@@ -81,26 +82,44 @@ export default function CheckoutPage() {
     setExpiry(value);
   };
 
-  // Handle confirm address button
-  const handleConfirmAddress = () => {
-    setConfirmAddress(true);
-  };
-
   // Handle same as delivery checkbox
   const handleSameAsDeliveryChange = () => {
     setSameAsDelivery(!sameAsDelivery);
     if (!sameAsDelivery) {
-      setBillingAddress(address); // Copy delivery address to billing if checked
+      setBillingAddress(address); // Adds delivery address to billing if checked
     }
   };
-  // form state
+
+  // Form state and action state
   const [state, formAction, isPending] = useActionState(
-    validateCheckoutInput.bind(null, cartItems, address, billingAddress),
+    validateCheckoutInput.bind(
+      null,
+      user?.id,
+      cartItems,
+      address,
+      billingAddress
+    ),
     {}
   );
 
   if (!user) {
     return <RedirectToSignIn />;
+  }
+
+  if (!cartItems.length === 0) {
+    redirect("/");
+  }
+
+  // converts deliveryDate to needed format
+  let deliveryDate;
+  let day;
+  let month;
+  let year;
+  if (state.dbResponse) {
+    deliveryDate = new Date(state.dbResponse.data[0].deliveryDate);
+    day = deliveryDate.getDate();
+    month = deliveryDate.getMonth() + 1;
+    year = deliveryDate.getFullYear();
   }
 
   return (
@@ -110,106 +129,158 @@ export default function CheckoutPage() {
           <h1 className="text-2xl">GoodsHub</h1>
         </Link>
       </div>
+
+      {/* Display Order Success */}
+
+      {/* Display Form Errors */}
       <div className="w-full h-full flex flex-col z-10 fixed bg-gray-200 top-0 pt-15 px-2 space-y-3 overflow-scroll">
-        <div className="flex flex-col w-full bg-white px-2 py-2 rounded">
-          <h2 className="font-semibold">Your details</h2>
-          <p>
-            {user.fullName}, {user.primaryEmailAddress.emailAddress}
-          </p>
-        </div>
-        <div className="flex flex-col w-full bg-white px-2 py-2 pb-3 rounded ">
-          <h2 className="font-semibold border-b border-b-2 border-gray-300">
-            Delivery
-          </h2>
-          <AddressForm state={address} setState={handleAddressChange} />
-        </div>
-
-        {/* Payment Section */}
-
-        <div className="flex flex-col w-full bg-white px-2 py-2 rounded">
-          <h2 className="font-semibold border-b border-b-2 border-gray-300">
-            Payment
-          </h2>
-          <div className="flex flex-col items-start justify-center pt-2">
-            <p className="">Billing Address</p>
-            <div className="flex ">
-              <input
-                type="checkbox"
-                checked={sameAsDelivery}
-                onChange={handleSameAsDeliveryChange}
-                className="mr-2"
-              />
-              <label htmlFor="sameAsDelivery">
-                Billing address same as delivery
-              </label>
+        {state.dbResponse && state.dbResponse.status === true && (
+          <div className="w-full bg-white h-full fixed top-20 z-20 pt-12 px-2 md:px-4">
+            <div className="max-w-3xl mx-auto bg-green-100 p-6 rounded-lg shadow-lg">
+              <div className="text-center">
+                <p className="text-lg font-semibold text-green-800">
+                  Order placed successfully!
+                </p>
+                <p className="text-sm text-green-700 mt-2">
+                  Your order will be delivered on:{" "}
+                  <span className="font-bold">{`${day}/${month}/${year}`}</span>
+                </p>
+              </div>
+              <div className="mt-6 text-center bg-green-500 text-white px-6 py-2 rounded-md font-medium hover:bg-green-600 transition-colors ">
+                <Link href="/">Continue Shopping</Link>
+              </div>
             </div>
           </div>
-          {!sameAsDelivery && (
-            <AddressForm
-              state={billingAddress}
-              setState={handleBillingAddressChange}
-            />
-          )}
-          <form
-            className="flex flex-col space-y-2 pt-2 md:items-center w-full"
-            action={formAction}
-          >
-            <p className="pt-2">Card Details</p>
-            <div className="flex flex-col w-[500px]">
-              <label className="text-sm text-gray-600" htmlFor="cardHolder">
-                Card Holder
-              </label>
-              <input
-                type="text"
-                className="border px-2 py-1 rounded w-full"
-                name="cardHolder"
-                id="cardHolder"
-              />
+        )}
+        {state.dbResponse && state?.dbResponse?.status === true ? null : (
+          <>
+            <div className="flex flex-col w-full bg-white px-2 py-2 rounded md:max-w-3xl mx-auto">
+              <h2 className="font-semibold">Your details</h2>
+              <p>
+                {user.fullName}, {user.primaryEmailAddress.emailAddress}
+              </p>
             </div>
-            <div className="flex flex-col w-[500px]">
-              <label className="text-sm text-gray-600" htmlFor="cardNumber">
-                Card Number
-              </label>
-              <input
-                className="border px-2 py-1 rounded w-full"
-                name="cardNumber"
-                id="cardNumber"
-              />
+            {state.errors &&
+            (state.errors.creditCardError.length > 0 ||
+              state.errors.addressError ||
+              state.errors.billingError) ? (
+              <div className="error-messages md:max-w-3xl mx-auto w-full bg-white px-2 py-2 text-red-500">
+                {state.errors.addressError && (
+                  <p>{state.errors.addressError}</p>
+                )}
+                {state.errors.billingError && (
+                  <p>{state.errors.billingError}</p>
+                )}
+                {state.errors.creditCardError && (
+                  <div>
+                    {state.errors.creditCardError.map((error, index) => (
+                      <p key={index}>{error}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            <div className="flex flex-col w-full bg-white px-2 py-2 pb-3 rounded md:max-w-3xl mx-auto">
+              <h2 className="font-semibold border-b border-b-2 border-gray-300">
+                Delivery
+              </h2>
+              <AddressForm state={address} setState={handleAddressChange} />
+
+              {/* Billing Section */}
+              <div className="flex flex-col w-full bg-white px-2 py-2 rounded ">
+                <h2 className="font-semibold border-b border-b-2 border-gray-300">
+                  Billing Address
+                </h2>
+                <div className="flex ">
+                  <input
+                    type="checkbox"
+                    checked={sameAsDelivery}
+                    onChange={handleSameAsDeliveryChange}
+                    className="mr-2"
+                  />
+                  <label htmlFor="sameAsDelivery">
+                    Billing address same as delivery
+                  </label>
+                </div>
+              </div>
+              {!sameAsDelivery && (
+                <AddressForm
+                  state={billingAddress}
+                  setState={handleBillingAddressChange}
+                />
+              )}
             </div>
-            <div className="flex flex-col w-[500px]">
-              <label className="text-sm text-gray-600" htmlFor="expiryDate">
-                Expiry Date (MM/YY)
-              </label>
-              <input
-                type="text"
-                className="border px-2 py-1 rounded w-full"
-                name="expiryDate"
-                id="expiryDate"
-                value={expiry}
-                onChange={handleExpiryChange}
-                placeholder="MM/YY"
-                maxLength="5"
-              />
+
+            {/* Payment Section */}
+            <div className="w-full bg-white px-2 py-2 pb-3 rounded md:max-w-3xl mx-auto">
+              <h2 className="font-semibold border-b border-b-2 border-gray-300">
+                Payment
+              </h2>
+              <form
+                className="flex flex-col space-y-2 pt-2 md:items-center w-full"
+                action={formAction}
+              >
+                <div className="flex flex-col w-full md:w-[500px]">
+                  <label className="text-sm text-gray-600" htmlFor="cardHolder">
+                    Card Holder
+                  </label>
+                  <input
+                    type="text"
+                    className="border px-2 py-1 rounded w-full"
+                    name="cardHolder"
+                    id="cardHolder"
+                  />
+                </div>
+                <div className="flex flex-col w-full md:w-[500px]">
+                  <label className="text-sm text-gray-600" htmlFor="cardNumber">
+                    Card Number
+                  </label>
+                  <input
+                    className="border px-2 py-1 rounded w-full"
+                    name="cardNumber"
+                    id="cardNumber"
+                  />
+                </div>
+                <div className="flex flex-col w-full md:w-[500px]">
+                  <label className="text-sm text-gray-600" htmlFor="expiryDate">
+                    Expiry Date (MM/YY)
+                  </label>
+                  <input
+                    type="text"
+                    className="border px-2 py-1 rounded w-full"
+                    name="expiryDate"
+                    id="expiryDate"
+                    value={expiry}
+                    onChange={handleExpiryChange}
+                    placeholder="MM/YY"
+                    maxLength="5"
+                  />
+                </div>
+                <div className="flex flex-col w-full md:w-[500px]">
+                  <label
+                    className="text-sm text-gray-600"
+                    htmlFor="securityCode"
+                  >
+                    Security Code
+                  </label>
+                  <input
+                    type="number"
+                    className="border px-2 py-1 rounded w-full"
+                    name="securityCode"
+                    id="securityCode"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+                >
+                  Place Order
+                </button>
+              </form>
             </div>
-            <div className="flex flex-col w-[500px]">
-              <label className="text-sm text-gray-600" htmlFor="securityCode">
-                Security Code
-              </label>
-              <input
-                type="number"
-                className="border px-2 py-1 rounded w-full"
-                name="securityCode"
-                id="securityCode"
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-green-500 text-white px-4 py-2 rounded mt-2"
-            >
-              Place Order
-            </button>
-          </form>
-        </div>
+          </>
+        )}
       </div>
     </>
   );
