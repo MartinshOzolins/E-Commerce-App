@@ -180,4 +180,4 @@ dist
 
 
 # database
-/db
+db/supabase.js
