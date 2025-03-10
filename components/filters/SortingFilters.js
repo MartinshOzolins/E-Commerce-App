@@ -22,7 +22,7 @@ export default function SortingFilters({ currParams, currSearchParams }) {
 
     // If no category params, just apply sorting filters
     if (!currParams) {
-      router.push(`/products${e.target.value}`);
+      router.push(`/products?${e.target.value}`);
     }
     // If both category params and search input exist, keep both in the URL
     else if (currParams && currSearchParams.q) {
