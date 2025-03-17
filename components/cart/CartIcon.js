@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 // mui components
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
@@ -10,17 +12,31 @@ import { useCartContext } from "../../contexts/CartContextProvider";
 import CartModal from "./CartModal";
 
 export default function CartIcon() {
-  // cart context
   const { cartItems, setCartItems, isCartOpen, setIsCartOpen } =
     useCartContext();
 
+  useEffect(() => {
+    // On page load, checks if there are saved items
+    const storedItems = JSON.parse(localStorage.getItem("items")) || [];
+    if (cartItems.length === 0) {
+      setCartItems(storedItems); // Retrieves cart from storage
+    }
+  }, []);
+
+  useEffect(() => {
+    // Every time cartItems changes, updates localStorage
+    if (cartItems.length > 0) {
+      localStorage.setItem("items", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
+
   return (
     <>
-      {isCartOpen ? <CartModal /> : null}
-      <div className="relative">
+      {isCartOpen && <CartModal />}
+      <div className="relative pr-2">
         {cartItems.length > 0 && (
-          <span className="absolute -top-2 -right-2 flex items-center justify-center h-5 w-5 text-xs font-semibold text-white bg-blue-800 rounded-full">
-            {cartItems.reduce((accum, product) => product.quantity + accum, 0)}
+          <span className="absolute -top-2 left-3 flex items-center justify-center h-5 w-5 text-xs font-semibold text-white bg-blue-800 rounded-full">
+            {cartItems.reduce((accum, product) => accum + product.quantity, 0)}
           </span>
         )}
         <ShoppingCartIcon

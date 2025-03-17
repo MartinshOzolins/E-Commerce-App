@@ -97,6 +97,8 @@ export async function validateCheckoutInput(
   // Expiry date validation
   if (expiryDate) {
     const [month, year] = expiryDate.split("/").map(Number);
+
+    // Retrieves only last two digits
     const currentYear = new Date().getFullYear() % 100;
 
     if (

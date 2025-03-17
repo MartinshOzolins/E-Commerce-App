@@ -34,6 +34,7 @@ export default function SingleProductCard({ product }) {
           alt={product.title}
           fill
           className="object-contain"
+          sizes="(max-width: 768px) 100vw, 33vw"
         />
       </Link>
       <div className="flex flex-col items-start text-base h-1/2 px-3">

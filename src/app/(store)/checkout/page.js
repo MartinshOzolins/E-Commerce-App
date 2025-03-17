@@ -115,10 +115,12 @@ export default function CheckoutPage() {
   let day;
   let month;
   let year;
-  if (state.dbResponse) {
+  if (state.dbResponse && state.dbResponse.status === true) {
     deliveryDate = new Date(state.dbResponse.data[0].deliveryDate);
     day = deliveryDate.getDate();
-    month = deliveryDate.getMonth() + 1;
+    if (day < 10) day = `0${day}`;
+    month = deliveryDate.getMonth();
+    if (month < 10) month = `0${month}`;
     year = deliveryDate.getFullYear();
   }
 
@@ -129,10 +131,6 @@ export default function CheckoutPage() {
           <h1 className="text-2xl">GoodsHub</h1>
         </Link>
       </div>
-
-      {/* Display Order Success */}
-
-      {/* Display Form Errors */}
       <div className="w-full h-full flex flex-col z-10 fixed bg-gray-200 top-0 pt-15 px-2 space-y-3 overflow-scroll">
         {state.dbResponse && state.dbResponse.status === true && (
           <div className="w-full bg-white h-full fixed top-20 z-20 pt-12 px-2 md:px-4">
@@ -152,6 +150,7 @@ export default function CheckoutPage() {
             </div>
           </div>
         )}
+        {/* Display Order Errors */}
         {state.dbResponse && state?.dbResponse?.status === true ? null : (
           <>
             <div className="flex flex-col w-full bg-white px-2 py-2 rounded md:max-w-3xl mx-auto">

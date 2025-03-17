@@ -32,3 +32,21 @@ export function decreaseProductQuantity(allProducts, product) {
   // if did not find or quantity only one
   return [...allProducts];
 }
+
+export function updateProductQuantity2(allProducts, newProduct) {
+  const index = allProducts.findIndex(
+    (product) => product.id === newProduct.id
+  );
+  if (index !== -1) {
+    const updatedProducts = [...allProducts];
+    // updates quantity of specific product to +1
+    updatedProducts[index] = {
+      ...updatedProducts[index],
+      quantity: updatedProducts[index].quantity + 1,
+    };
+    // returns all products to contex with updated quantity
+    return updatedProducts;
+  }
+  // returns all products if added new product
+  return [...allProducts, { ...newProduct, quantity: 1 }];
+}

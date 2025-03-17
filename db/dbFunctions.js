@@ -24,6 +24,7 @@ export async function insertNewOrder({
   const response = {};
   if (error) {
     response.status = false;
+
     return response;
   }
 
