@@ -68,7 +68,7 @@ export default async function NavBar() {
               </div>
             </SignedIn>
 
-            {/* Cart Icon with Item Count */}
+            {/* Cart Icon with Item Count and cartModal */}
             <CartIcon />
           </div>
         </div>

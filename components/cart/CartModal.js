@@ -37,7 +37,7 @@ export default function CartModal() {
       />
 
       {/* White modal positioned on the right side for medium screens and above */}
-      <div className="fixed right-0 top-0 w-full md:w-[400px] bg-gray-100 h-full flex flex-col shadow-lg z-50">
+      <div className="fixed right-0 top-0 w-full md:w-[400px] bg-gray-100 h-full flex flex-col shadow-lg z-50 mr-0">
         <div className="w-full h-13 bg-white mb-5 flex items-center">
           <div className="w-full h-full flex justify-start pl-3 border-r border-gray-300 items-center">
             <h2 className="">

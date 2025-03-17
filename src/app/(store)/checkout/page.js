@@ -131,9 +131,9 @@ export default function CheckoutPage() {
           <h1 className="text-2xl">GoodsHub</h1>
         </Link>
       </div>
-      <div className="w-full h-full flex flex-col z-10 fixed bg-gray-200 top-0 pt-15 px-2 space-y-3 overflow-scroll">
+      <div className="w-full h-full flex flex-col z-10 fixed bg-gray-200 top-0 pt-15 space-y-3 overflow-scroll items-center px-2">
         {state.dbResponse && state.dbResponse.status === true && (
-          <div className="w-full bg-white h-full fixed top-20 z-20 pt-12 px-2 md:px-4">
+          <div className="w-full bg-white h-full fixed top-20 z-20 pt-12 px-2 md:px-5">
             <div className="max-w-3xl mx-auto bg-green-100 p-6 rounded-lg shadow-lg">
               <div className="text-center">
                 <p className="text-lg font-semibold text-green-800">
@@ -144,13 +144,16 @@ export default function CheckoutPage() {
                   <span className="font-bold">{`${day}/${month}/${year}`}</span>
                 </p>
               </div>
-              <div className="mt-6 text-center bg-green-500 text-white px-6 py-2 rounded-md font-medium hover:bg-green-600 transition-colors ">
-                <Link href="/">Continue Shopping</Link>
-              </div>
+
+              <Link href="/">
+                <button className="w-full mt-6 text-center bg-green-500 text-white px-6 py-2 rounded-md font-medium hover:bg-green-600 transition-colors hover:cursor-pointer ">
+                  Continue Shopping
+                </button>
+              </Link>
             </div>
           </div>
         )}
-        {/* Display Order Errors */}
+        {/* Display order details and possibly returned errors */}
         {state.dbResponse && state?.dbResponse?.status === true ? null : (
           <>
             <div className="flex flex-col w-full bg-white px-2 py-2 rounded md:max-w-3xl mx-auto">
