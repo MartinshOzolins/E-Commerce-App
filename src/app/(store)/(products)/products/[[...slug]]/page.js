@@ -1,7 +1,10 @@
 //# Catalog page (Product Listings)
 
 // api functions
-import { fetchInputSearch, fetchProducts } from "@/app/utils/fetchFunctions";
+import {
+  fetchInputSearch,
+  fetchProducts,
+} from "../../../../../../utils/fetchFunctions";
 import LoadMore from "../../../../../../components/LoadMore";
 
 //components

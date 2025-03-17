@@ -10,7 +10,7 @@ import { useCartContext } from "../../contexts/CartContextProvider";
 import {
   decreaseProductQuantity,
   updateProductQuantity,
-} from "@/app/utils/quantityUtils";
+} from "../../utils/quantityUtils";
 
 // Next.js components
 import Link from "next/link";

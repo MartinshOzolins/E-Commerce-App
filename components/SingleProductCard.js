@@ -9,13 +9,13 @@ import Link from "next/link";
 import { Rating } from "@mui/material";
 
 // helper function
-import { fixRatingValue } from "@/app/utils/fixRatingValue";
+import { fixRatingValue } from "../utils/fixRatingValue";
 
 // context custom hook
 import { useCartContext } from "../contexts/CartContextProvider";
 
 // helper function to check quantity and update cart proplery
-import { updateProductQuantity } from "@/app/utils/quantityUtils";
+import { updateProductQuantity } from "../utils/quantityUtils";
 
 export default function SingleProductCard({ product }) {
   // converts rating value

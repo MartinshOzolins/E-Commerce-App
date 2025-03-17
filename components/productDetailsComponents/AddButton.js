@@ -4,7 +4,7 @@
 import { useCartContext } from "../../contexts/CartContextProvider";
 
 // helper function to check quantity and update cart proplery
-import { updateProductQuantity } from "@/app/utils/quantityUtils";
+import { updateProductQuantity } from "../../utils/quantityUtils";
 
 export default function AddButton({ product }) {
   //  cart context

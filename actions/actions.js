@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { capitalizeFirstLetter } from "@/app/utils/capitaliseFirstLetter";
+import { capitalizeFirstLetter } from "../utils/capitaliseFirstLetter";
 import { insertNewOrder } from "../db/dbFunctions";
 
 // server action to change url params with input search

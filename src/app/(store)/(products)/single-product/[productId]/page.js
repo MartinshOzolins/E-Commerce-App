@@ -1,10 +1,10 @@
 import { Rating } from "@mui/material";
 
 // helper function
-import { fixRatingValue } from "@/app/utils/fixRatingValue";
+import { fixRatingValue } from "../../../../../../utils/fixRatingValue";
 
 // api function
-import { fetchProduct } from "@/app/utils/fetchFunctions";
+import { fetchProduct } from "../../../../../../utils/fetchFunctions";
 
 //components
 import SwiperComponent from "../../../../../../components/productDetailsComponents/Swiper";

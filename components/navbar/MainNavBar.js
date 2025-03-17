@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 
 // api func
-import { fetchCategories } from "@/app/utils/fetchFunctions";
+import { fetchCategories } from "../../utils/fetchFunctions";
 
 // components
 import SmallNavBar from "./SmallNavBar";
