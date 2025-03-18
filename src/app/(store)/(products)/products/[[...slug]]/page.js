@@ -45,7 +45,7 @@ export default async function ProductCatalog({ params, searchParams }) {
   return (
     <>
       {error ? (
-        <div className="w-full text-center pt-10">
+        <div className="w-full text-center pt-10 min-h-screen">
           <h2 className="text-2xl font-semibold pb-3">{error}</h2>
           <p>
             Try searching again, we&apos;re sure you&apos;ll find something you

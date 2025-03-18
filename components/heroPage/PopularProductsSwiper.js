@@ -66,7 +66,7 @@ export default function PopularProductsSwiper() {
         className="w-full"
         breakpoints={{
           300: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 20,
           },
           600: {

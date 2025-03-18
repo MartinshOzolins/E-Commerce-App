@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center p-3 pt-3 animate-pulse pt-10">
+    <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center p-3 pt-3 animate-pulse pt-10 min-h-screen">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
         (skeleton, index) => (
           <div

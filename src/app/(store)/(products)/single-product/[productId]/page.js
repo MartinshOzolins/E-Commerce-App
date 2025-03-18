@@ -26,7 +26,7 @@ export default async function SingleProductDetails({ params }) {
   const rating = fixRatingValue(product.rating);
 
   return (
-    <div className="flex flex-col w-full h-full px-2 mt-5 ">
+    <div className="flex flex-col w-full min-h-screen px-2 mt-5 ">
       <SwiperComponent product={product} />
       <div className="flex flex-col text-base px-3">
         <div className="flex flex-col w-full justify-start pb-2">

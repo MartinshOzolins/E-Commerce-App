@@ -27,7 +27,7 @@ export default async function NavBar() {
   const { categories } = await fetchCategories();
 
   return (
-    <>
+    <header>
       {/* Navbar for Small Screens */}
       <SmallNavBar categories={categories} />
 
@@ -99,6 +99,6 @@ export default async function NavBar() {
 
       {/* Subtle Divider */}
       <div className="h-[1px] bg-blue-100 w-full mt-3" />
-    </>
+    </header>
   );
 }

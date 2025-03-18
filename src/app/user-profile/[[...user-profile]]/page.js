@@ -9,7 +9,7 @@ import { UserProfile } from "@clerk/nextjs";
 
 export default function UserProfilePage() {
   return (
-    <div className="flex justify-center items-center py-8">
+    <div className="flex justify-center items-center py-8 min-h-screen">
       <UserProfile path="/user-profile" />
     </div>
   );
