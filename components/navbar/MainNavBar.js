@@ -75,7 +75,7 @@ export default async function NavBar() {
       </div>
 
       {/* Navbar Links Section */}
-      <div className="flex flex-row w-full justify-start pl-4 pt-2 space-x-5 hidden sm:flex text-blue-900">
+      <div className="flex flex-row w-full justify-start pl-4 pt-2 space-x-5 hidden sm:flex text-blue-900 font-semibold">
         <CategoryFilter categories={categories} />
         <Link
           href="/products"
