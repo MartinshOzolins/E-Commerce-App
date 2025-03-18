@@ -77,7 +77,6 @@ export async function fetchProduct(productId) {
 
 // fetch input search
 export async function fetchInputSearch({ input, sortBy, skipped }) {
-  console.log(input, skipped);
   let baseURL = `https://dummyjson.com/products/search?q=${input}&skip=${skipped}&limit=15`;
   // sorting params
   let order = "desc";

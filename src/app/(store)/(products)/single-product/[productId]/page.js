@@ -7,7 +7,7 @@ import { fixRatingValue } from "../../../../../../utils/fixRatingValue";
 import { fetchProduct } from "../../../../../../utils/fetchFunctions";
 
 //components
-import SwiperComponent from "../../../../../../components/productDetailsComponents/Swiper";
+import SwiperComponent from "../../../../../../components/productDetailsComponents/SwiperComponentSingleProduct";
 
 //Next.js functions
 import { notFound } from "next/navigation";
