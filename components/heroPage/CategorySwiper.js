@@ -5,10 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 // Next.js components
 import Image from "next/image";
+import Link from "next/link";
 
 const categories = [
   "/categories/fragrances.png",
@@ -55,26 +56,30 @@ export default function CategorySwiper() {
             .split("/")[2]
             .split(".")[0]
             .replace(/-/g, " ");
+          const categoryUrl = img.split("/")[2].split(".")[0];
           return (
             <SwiperSlide key={index} className="relative cursor-pointer">
-              <div className="flex flex-col relative w-full h-[200px] sm:h-[300px] md:h-[400px] border border-gray-200 items-center">
+              <Link
+                href={`/products/${categoryUrl}`}
+                className="flex flex-col relative w-full h-[200px] sm:h-[250px] md:h-[300px] border border-gray-200 items-center"
+              >
                 <Image
                   src={img}
                   alt={categoryName}
                   height={350}
                   width={350}
-                  className="object-contain h-2/3 sm:h-full w-full"
+                  className="object-contain h-2/3 w-full"
                 />
-                <div className="h-20 w-full flex flex-col items-center px-5 sm:px-2 md:px-5 ">
+                <div className="w-full h-full flex flex-col items-center justify-end px-5 sm:px-2 md:px-5 pb-2 md:pb-3">
                   <h2 className="text-black font-semibold text-sm sm:text-base capitalize truncate overflow-hidden whitespace-nowrap w-full text-center">
                     {categoryName}
                   </h2>
 
-                  <button className="text-sm sm:text-base bg-blue-900 text-white w-full py-1 rounded-md">
+                  <button className="text-sm sm:text-base bg-blue-900 text-white w-full py-1 rounded-md cursor-pointer">
                     SHOP NOW
                   </button>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           );
         })}

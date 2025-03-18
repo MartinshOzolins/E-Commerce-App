@@ -16,7 +16,7 @@ export default function AddButton({ product }) {
     <button
       className="w-full py-3 px-3 bg-blue-900 text-white hover:bg-white hover:text-blue-900 hover:cursor-pointer  hover:border-blue-900 hover:border duration-100"
       onClick={() =>
-        setCartItems((prev) => [...updateProductQuantity(prev, product)])
+        setCartItems((prev) => updateProductQuantity(prev, product))
       }
     >
       ADD TO BASKET

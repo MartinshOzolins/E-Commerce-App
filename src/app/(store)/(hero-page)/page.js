@@ -1,7 +1,7 @@
 //# HERO page with Popular Categories & Trending Items (Server)
 
 import CategorySwiper from "../../../../components/heroPage/CategorySwiper";
-import { fetchCategories } from "../../../../utils/fetchFunctions";
+import PopularProductsSwiper from "../../../../components/heroPage/PopularProductsSwiper";
 
 export default async function HeroPage() {
   return (
@@ -10,6 +10,10 @@ export default async function HeroPage() {
         Currently Trending Categories
       </h2>
       <CategorySwiper />
+      <h2 className="font-semibold text-center text-xl">
+        GoodsHub&apos;s Favorites
+      </h2>
+      <PopularProductsSwiper />
     </div>
   );
 }
