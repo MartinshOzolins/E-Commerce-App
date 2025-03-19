@@ -24,13 +24,13 @@ export default function Footer() {
         <address className="not-italic">
           <div className="space-y-2 text-right flex flex-col items-start sm:items-end pt-4 sm:pt-0">
             <h3 className="font-bold text-blue-900">Quick Links</h3>
-            <Link href="#" className="hover:text-blue-800">
+            <Link href="/contact" className="hover:text-blue-800">
               Contacts
             </Link>
-            <Link href="#" className="hover:text-blue-800">
+            <Link href="/shipping-information" className="hover:text-blue-800">
               Shipping
             </Link>
-            <Link href="#" className="hover:text-blue-800">
+            <Link href="/return-policy" className="hover:text-blue-800">
               Return Policy
             </Link>
           </div>
