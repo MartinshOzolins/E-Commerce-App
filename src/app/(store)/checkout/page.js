@@ -115,7 +115,7 @@ export default function CheckoutPage() {
   let day;
   let month;
   let year;
-  if (state.dbResponse && state.dbResponse.status === true) {
+  if (state.dbResponse && state.dbResponse.status === "success") {
     deliveryDate = new Date(state.dbResponse.data[0].deliveryDate);
     day = deliveryDate.getDate();
     if (day < 10) day = `0${day}`;
@@ -132,8 +132,8 @@ export default function CheckoutPage() {
         </Link>
       </div>
       <div className="w-full h-full flex flex-col z-10 fixed bg-gray-200 top-0 pt-15 space-y-3 overflow-scroll items-center px-2">
-        {state.dbResponse && state.dbResponse.status === true && (
-          <div className="w-full bg-white h-full fixed top-20 z-20 pt-12 px-2 md:px-5">
+        {state.dbResponse && state.dbResponse.status === "success" && (
+          <div className="w-full bg-white h-full fixed top-11 z-20 pt-12 px-2 md:px-5">
             <div className="max-w-3xl mx-auto bg-green-100 p-6 rounded-lg shadow-lg">
               <div className="text-center">
                 <p className="text-lg font-semibold text-green-800">
@@ -154,46 +154,43 @@ export default function CheckoutPage() {
           </div>
         )}
         {/* Display order details and possibly returned errors */}
-        {state.dbResponse && state?.dbResponse?.status === true ? null : (
+        {state.dbResponse && state?.dbResponse?.status === "success" ? null : (
           <>
             <div className="flex flex-col w-full bg-white px-2 py-2 rounded md:max-w-3xl mx-auto">
               <h2 className="font-semibold">Your details</h2>
-              <p>
-                {user.fullName}, {user.primaryEmailAddress.emailAddress}
-              </p>
-            </div>
-            {state.errors &&
-            (state.errors.creditCardError.length > 0 ||
-              state.errors.addressError ||
-              state.errors.billingError) ? (
-              <div className="error-messages md:max-w-3xl mx-auto w-full bg-white px-2 py-2 text-red-500">
-                {state.errors.addressError && (
-                  <p>{state.errors.addressError}</p>
-                )}
-                {state.errors.billingError && (
-                  <p>{state.errors.billingError}</p>
-                )}
-                {state.errors.creditCardError && (
-                  <div>
-                    {state.errors.creditCardError.map((error, index) => (
-                      <p key={index}>{error}</p>
-                    ))}
-                  </div>
-                )}
+              <div className="flex flex-col sm:flex-row">
+                <p>{user.fullName},</p>
+                <p className="sm:ml-1">
+                  {user.primaryEmailAddress.emailAddress}
+                </p>
               </div>
-            ) : null}
+            </div>
 
             <div className="flex flex-col w-full bg-white px-2 py-2 pb-3 rounded md:max-w-3xl mx-auto">
-              <h2 className="font-semibold border-b border-b-2 border-gray-300">
-                Delivery
-              </h2>
+              <div className="flex flex-col sm:flex">
+                <h2 className="font-semibold border-b border-b-2 border-gray-300">
+                  Delivery
+                </h2>
+                <p className="text-red-500 font-semibold text-xs pt-1 sm:pt-0">
+                  {state.errors && state.errors.addressError
+                    ? `*${state.errors.addressError}`
+                    : null}
+                </p>
+              </div>
               <AddressForm state={address} setState={handleAddressChange} />
 
               {/* Billing Section */}
-              <div className="flex flex-col w-full bg-white px-2 py-2 rounded ">
-                <h2 className="font-semibold border-b border-b-2 border-gray-300">
-                  Billing Address
-                </h2>
+              <div className="flex flex-col w-full bg-white py-2  rounded">
+                <div className="flex flex-col sm:flex">
+                  <h2 className="font-semibold border-b border-b-2 border-gray-300">
+                    Billing Address
+                  </h2>
+                  <p className="text-red-500 font-semibold text-xs pt-1 sm:pt-0">
+                    {state.errors && state.errors.addressError
+                      ? `*${state.errors.addressError}`
+                      : null}
+                  </p>
+                </div>
                 <div className="flex ">
                   <input
                     type="checkbox"
@@ -216,9 +213,16 @@ export default function CheckoutPage() {
 
             {/* Payment Section */}
             <div className="w-full bg-white px-2 py-2 pb-3 rounded md:max-w-3xl mx-auto">
-              <h2 className="font-semibold border-b border-b-2 border-gray-300">
-                Payment
-              </h2>
+              <div className="flex flex-col sm:flex">
+                <h2 className="font-semibold border-b border-b-2 border-gray-300">
+                  Payment
+                </h2>
+                <p className="text-red-500 font-semibold text-xs pt-1 sm:pt-0">
+                  {state.errors && state.errors.creditCardError.length > 0
+                    ? `*Invalid Credit Card Details`
+                    : null}
+                </p>
+              </div>
               <form
                 className="flex flex-col space-y-2 pt-2 md:items-center w-full"
                 action={formAction}

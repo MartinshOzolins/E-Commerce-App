@@ -23,12 +23,12 @@ export async function insertNewOrder({
 
   const response = {};
   if (error) {
-    response.status = false;
+    response.status = "fail";
 
     return response;
   }
 
-  response.status = true;
+  response.status = "success";
   response.data = data;
   return response;
 }

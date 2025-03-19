@@ -18,7 +18,7 @@ export async function validateCheckoutInput(
   prevState,
   formData
 ) {
-  const response = { errors: { creditCardError: [] } };
+  const response = { errors: { creditCardError: [], isError: false } };
   let updatedAddress = {};
   let updatedBillingAddress = {};
 
@@ -32,6 +32,7 @@ export async function validateCheckoutInput(
   ) {
     response.errors.addressError =
       "Please complete required fields for address";
+    response.errors.isError = true;
   } else {
     updatedAddress = {
       houseInfo: address.houseInfo,
@@ -59,6 +60,7 @@ export async function validateCheckoutInput(
     ) {
       response.errors.billingError =
         "Please complete required fields for billing address";
+      response.errors.isError = true;
     } else {
       updatedBillingAddress = {
         houseInfo: billingAddress.houseInfo,
@@ -76,8 +78,7 @@ export async function validateCheckoutInput(
     }
   }
   // Early return if address validation fails
-  if (response.errors.addressError || response.errors.billingError)
-    return response;
+  if (response.errors.isError === true) return response;
 
   // Validate credit card details
   const cardHolder = formData.get("cardHolder");
@@ -118,7 +119,10 @@ export async function validateCheckoutInput(
   }
 
   // Return response with errors
-  if (response.errors.creditCardError.length > 0) return response;
+  if (response.errors.creditCardError.length > 0) {
+    response.errors.isError = true;
+    return response;
+  }
 
   // Converts cartItems into
   // expected format -> [
