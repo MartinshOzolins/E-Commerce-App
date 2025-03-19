@@ -134,7 +134,10 @@ export default function CartModal() {
             <span>${total}</span>
           </div>
           <Link href="/checkout" onClick={() => setIsCartOpen(false)}>
-            <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-white hover:text-blue-900 transition hover:cursor-pointer hover:border hover:border-blue-900">
+            <button
+              className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-white hover:text-blue-900 transition hover:cursor-pointer hover:border hover:border-blue-900"
+              disabled={cartItems.length == 0}
+            >
               Checkout
             </button>
           </Link>

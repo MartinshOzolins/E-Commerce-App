@@ -1,3 +1,5 @@
+"use client";
+
 import { UserProfile } from "@clerk/nextjs";
 
 // This page uses the UserProfile component from Clerk to display the user's profile.
@@ -7,10 +9,26 @@ import { UserProfile } from "@clerk/nextjs";
 // The Link within navigation component is set to "/user-profile", which is this optional catch-all segment.
 //Once clicked, it opens this component, and Clerk will automatically add additional endpoints based on user interactions within the <UserProfile/> component, such as "/edit-profile", "/change-name", etc.
 
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+
 export default function UserProfilePage() {
   return (
     <div className="flex justify-center items-center py-8 min-h-screen">
-      <UserProfile path="/user-profile" />
+      <UserProfile path="/user-profile">
+        <UserProfile.Link
+          label="Orders"
+          url="/orders"
+          labelIcon={
+            <LocalShippingIcon
+              sx={{
+                width: "18px",
+                height: "18px", // Ensures proper icon size
+                // Ensures alignment with text
+              }}
+            />
+          }
+        />
+      </UserProfile>
     </div>
   );
 }

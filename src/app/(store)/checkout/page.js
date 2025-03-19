@@ -15,14 +15,14 @@ import Link from "next/link";
 // Components
 import AddressForm from "../../../../components/forms/AddressForm";
 import { validateCheckoutInput } from "../../../../actions/actions";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default function CheckoutPage() {
   // User states
   const { isSignedIn, user, isLoaded } = useUser();
 
   // Cart states
-  const { cartItems } = useCartContext();
+  const { cartItems, setCartItems } = useCartContext();
 
   // State for confirming address and billing address
   const [sameAsDelivery, setSameAsDelivery] = useState(false);
@@ -106,7 +106,7 @@ export default function CheckoutPage() {
     return <RedirectToSignIn />;
   }
 
-  if (!cartItems.length === 0) {
+  if (cartItems.length === 0) {
     redirect("/");
   }
 
@@ -116,6 +116,10 @@ export default function CheckoutPage() {
   let month;
   let year;
   if (state.dbResponse && state.dbResponse.status === "success") {
+    // clears cart context
+    setCartItems((prev) => []);
+
+    // retrievs delivery date
     deliveryDate = new Date(state.dbResponse.data[0].deliveryDate);
     day = deliveryDate.getDate();
     if (day < 10) day = `0${day}`;
@@ -186,8 +190,8 @@ export default function CheckoutPage() {
                     Billing Address
                   </h2>
                   <p className="text-red-500 font-semibold text-xs pt-1 sm:pt-0">
-                    {state.errors && state.errors.addressError
-                      ? `*${state.errors.addressError}`
+                    {state.errors && state.errors.billingError
+                      ? `*${state.errors.billingError}`
                       : null}
                   </p>
                 </div>

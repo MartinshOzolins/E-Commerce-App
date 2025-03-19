@@ -9,6 +9,8 @@ import {
   SignedOut,
   SignInButton,
   SignOutButton,
+  UserButton,
+  UserProfile,
 } from "@clerk/nextjs";
 
 // Next.js components
