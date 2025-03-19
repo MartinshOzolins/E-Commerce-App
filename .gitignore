@@ -179,5 +179,4 @@ dist
 .pnp.*
 
 
-# database
-db/supabase.js
+

@@ -3,8 +3,8 @@
 import { auth, clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = auth();
-  //console.log(userId);
+  // const { userId } = auth();
+  // console.log(userId);
 });
 
 export const config = {

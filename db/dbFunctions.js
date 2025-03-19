@@ -32,3 +32,18 @@ export async function insertNewOrder({
   response.data = data;
   return response;
 }
+
+// fetch previous orders
+export async function fetchUserOrders({ userId }) {
+  let { data, error } = await supabase.from("orders").select("*");
+  console.log(data);
+  const response = {};
+  if (error)
+    return (response.error = "Server Failure. Please try again later.");
+
+  if (data.length === 0) {
+    return (response.error = "There are no orders on your account.");
+  }
+
+  return (response.orders = data);
+}
