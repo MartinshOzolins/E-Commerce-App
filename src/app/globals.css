@@ -10,3 +10,28 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* category filter for larger screens */
+@media screen and (max-width: 640px) {
+  .select-category {
+    font-size: 0.675rem;
+  }
+}
+@media screen and (min-width: 640px) and (max-width: 768px) {
+  .select-category {
+    font-size: 0.85rem;
+  }
+}
+@media screen and (min-width: 768px) {
+  .select-category {
+    font-size: 1.075rem;
+  }
+}
+
+/* category filter for smaller screens */
+
+@media screen and (max-width: 640px) {
+  .select-category-small {
+    font-size: 0.875rem;
+  }
+}

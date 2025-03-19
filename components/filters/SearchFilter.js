@@ -25,7 +25,10 @@ export default function SearchFilter({ searchIconSize }) {
 
   return (
     <>
-      <form action={formAction} className="flex items-center w-full pr-2">
+      <form
+        action={formAction}
+        className="flex items-center w-full pr-2  max-w-[600px]"
+      >
         <input
           type="text"
           className="border border-gray-400 rounded-l-md px-3 py-2 w-full h-10 outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"

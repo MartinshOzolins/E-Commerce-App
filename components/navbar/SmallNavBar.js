@@ -42,16 +42,18 @@ export default function SmallNavBar({ categories }) {
   return (
     <>
       {/* For Mobile Screens */}
-      <div className="flex p-2 pt-3 sm:hidden w-full">
-        <div className="w-1/5 flex flex-row items-center">
+      <div className="flex p-2 pt-3 sm:hidden w-full justify-between">
+        <div className="flex flex-row items-center w-10">
           <MenuIcon
             className="hover:cursor-pointer"
             onClick={() => toggleModal(true)}
             aria-label="Open Menu"
           />
         </div>
-        <div className="w-4/5 text-center flex flex-row items-center justify-center ">
+        <div className="flex-1 text-center flex flex-row items-center justify-center ">
           <SearchFilter searchIconSize="24px" />
+        </div>
+        <div className="flex items-center justify-center">
           <CartIcon />
         </div>
       </div>
@@ -59,7 +61,7 @@ export default function SmallNavBar({ categories }) {
       {/* Full-Screen Modal for Small Screens */}
       {modalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center"
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center sm:hidden"
           onClick={closeModalOnClickOutside} // Close modal on click outside
         >
           <div
@@ -87,7 +89,7 @@ export default function SmallNavBar({ categories }) {
             </div>
 
             {/* Menu Options */}
-            <div className="flex flex-col space-y-3 text-blue-900 text-md">
+            <div className="flex flex-col space-y-3 text-blue-900 text-md select-category-small">
               <CategoryFilter
                 categories={categories}
                 toggleModal={toggleModal}
@@ -113,6 +115,13 @@ export default function SmallNavBar({ categories }) {
               >
                 Return Policy
               </Link>
+              <Link
+                href="/contact"
+                className="hover:cursor-pointer"
+                onClick={() => toggleModal(false)}
+              >
+                Contact Us
+              </Link>
 
               <div className="flex flex-col space-y-2">
                 <SignedOut>
@@ -121,10 +130,17 @@ export default function SmallNavBar({ categories }) {
                   </SignInButton>
                 </SignedOut>
                 <SignedIn>
-                  <SignOutButton className="hover:cursor-pointer text-left">
+                  <SignOutButton
+                    className="hover:cursor-pointer text-left"
+                    onClick={() => toggleModal(false)}
+                  >
                     Sign Out
                   </SignOutButton>
-                  <Link href="/user-profile" className="hover:cursor-pointer">
+                  <Link
+                    href="/user-profile"
+                    className="hover:cursor-pointer"
+                    onClick={() => toggleModal(false)}
+                  >
                     Profile
                   </Link>
                 </SignedIn>
