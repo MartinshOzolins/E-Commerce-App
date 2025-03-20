@@ -109,6 +109,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     return () => {
       if (JSON.parse(localStorage.getItem("clearContext")) === true) {
+        // manually triggers the useEffect in CartIcon
         window.dispatchEvent(
           new StorageEvent("storage", { key: "clearContext", newValue: "true" })
         );
@@ -145,10 +146,6 @@ export default function CheckoutPage() {
 
     // sets to clear context (executed in CartIcon component)
     localStorage.setItem("clearContext", "true");
-    // manually triggers the useEffect in CartIcon
-    // window.dispatchEvent(
-    //   new StorageEvent("storage", { key: "clearContext", newValue: "true" })
-    // );
   }
 
   return (
@@ -307,7 +304,7 @@ export default function CheckoutPage() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+                  className="bg-green-500 text-white px-4 py-2 rounded mt-2 hover:cursor-pointer hover:bg-green-600"
                 >
                   Place Order
                 </button>

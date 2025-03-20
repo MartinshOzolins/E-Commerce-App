@@ -39,7 +39,7 @@ export default function OrdersPage() {
     if (userId) {
       const fetchOrd = async () => {
         const response = await fetchUserOrders({ userId });
-        setOrders(response);
+        setOrders(response.reverse());
       };
       fetchOrd();
     }

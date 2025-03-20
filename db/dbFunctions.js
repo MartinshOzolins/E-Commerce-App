@@ -36,7 +36,7 @@ export async function insertNewOrder({
 // fetch previous orders
 export async function fetchUserOrders({ userId }) {
   let { data, error } = await supabase.from("orders").select("*");
-  console.log(data);
+
   const response = {};
   if (error)
     return (response.error = "Server Failure. Please try again later.");
