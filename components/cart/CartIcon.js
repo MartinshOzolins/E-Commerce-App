@@ -17,18 +17,33 @@ export default function CartIcon() {
 
   useEffect(() => {
     // On page load, checks if there are saved items
-    const storedItems = JSON.parse(localStorage.getItem("items")) || [];
+    const storedItems = localStorage.getItem("items");
+    const parsedItems = storedItems ? JSON.parse(storedItems) : [];
+
     if (cartItems.length === 0) {
-      setCartItems(storedItems); // Retrieves cart from storage
+      // Updates cart from storage
+      setCartItems(parsedItems);
     }
   }, []);
 
   useEffect(() => {
     // Every time cartItems changes, updates localStorage
-    if (cartItems.length > 0) {
-      localStorage.setItem("items", JSON.stringify(cartItems));
-    }
+    localStorage.setItem("items", JSON.stringify(cartItems));
   }, [cartItems]);
+
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === "clearContext" && event.newValue === "true") {
+        setTimeout(() => {
+          setCartItems([]);
+          localStorage.removeItem("clearContext");
+        }, 0);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <>

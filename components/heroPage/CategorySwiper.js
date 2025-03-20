@@ -13,7 +13,7 @@ import Link from "next/link";
 
 const categories = [
   "/categories/fragrances.png",
-  "/categories/home-decorations.png",
+  "/categories/home-decoration.png",
   "/categories/mens-shirts.png",
   "/categories/mens-watches.png",
   "/categories/skin-care.png",

@@ -7,14 +7,18 @@ import { RedirectToSignIn, useUser } from "@clerk/nextjs";
 import { useCartContext } from "../../../../contexts/CartContextProvider";
 
 // React
-import { useState, useActionState } from "react";
+import { useState, useActionState, useEffect } from "react";
 
 // Next.js components
 import Link from "next/link";
 
 // Components
 import AddressForm from "../../../../components/forms/AddressForm";
+
+// utils
 import { validateCheckoutInput } from "../../../../actions/actions";
+
+// Next.js functions
 import { redirect } from "next/navigation";
 
 export default function CheckoutPage() {
@@ -102,6 +106,21 @@ export default function CheckoutPage() {
     {}
   );
 
+  useEffect(() => {
+    return () => {
+      if (JSON.parse(localStorage.getItem("clearContext")) === true) {
+        window.dispatchEvent(
+          new StorageEvent("storage", { key: "clearContext", newValue: "true" })
+        );
+      }
+    };
+  }, []);
+
+  function handleRedirect() {
+    // redirects
+    redirect("/");
+  }
+
   if (!user) {
     return <RedirectToSignIn />;
   }
@@ -116,9 +135,6 @@ export default function CheckoutPage() {
   let month;
   let year;
   if (state.dbResponse && state.dbResponse.status === "success") {
-    // clears cart context
-    setCartItems((prev) => []);
-
     // retrievs delivery date
     deliveryDate = new Date(state.dbResponse.data[0].deliveryDate);
     day = deliveryDate.getDate();
@@ -126,14 +142,21 @@ export default function CheckoutPage() {
     month = deliveryDate.getMonth();
     if (month < 10) month = `0${month}`;
     year = deliveryDate.getFullYear();
+
+    // sets to clear context (executed in CartIcon component)
+    localStorage.setItem("clearContext", "true");
+    // manually triggers the useEffect in CartIcon
+    // window.dispatchEvent(
+    //   new StorageEvent("storage", { key: "clearContext", newValue: "true" })
+    // );
   }
 
   return (
     <>
       <div className="flex flex-col w-full bg-white h-10 justify-center pl-2 fixed top-0 z-20">
-        <Link href="/">
-          <h1 className="text-2xl">GoodsHub</h1>
-        </Link>
+        <h1 className="text-2xl" onClick={handleRedirect}>
+          GoodsHub
+        </h1>
       </div>
       <div className="w-full h-full flex flex-col z-10 fixed bg-gray-200 top-0 pt-15 space-y-3 overflow-scroll items-center px-2">
         {state.dbResponse && state.dbResponse.status === "success" && (
@@ -149,11 +172,12 @@ export default function CheckoutPage() {
                 </p>
               </div>
 
-              <Link href="/">
-                <button className="w-full mt-6 text-center bg-green-500 text-white px-6 py-2 rounded-md font-medium hover:bg-green-600 transition-colors hover:cursor-pointer ">
-                  Continue Shopping
-                </button>
-              </Link>
+              <button
+                className="w-full mt-6 text-center bg-green-500 text-white px-6 py-2 rounded-md font-medium hover:bg-green-600 transition-colors hover:cursor-pointer "
+                onClick={() => handleRedirect()}
+              >
+                Continue Shopping
+              </button>
             </div>
           </div>
         )}
