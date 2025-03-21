@@ -4,8 +4,6 @@ import { useAuth } from "@clerk/nextjs";
 
 import { useEffect, useState } from "react";
 
-import { fetchUserOrders } from "../../../../db/dbFunctions";
-
 //MUI components
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -17,7 +15,7 @@ import convertDate from "../../../../utils/convertDate";
 
 export default function OrdersPage() {
   const { userId } = useAuth();
-  const [orders, setOrders] = useState();
+  const [orders, setOrders] = useState([]);
   const [areOrders, setAreOrders] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -25,14 +23,20 @@ export default function OrdersPage() {
     if (userId) {
       const fetchOrd = async () => {
         setLoading(true);
-        const { orders, error } = await fetchUserOrders({ userId });
-        if (orders && orders.length > 0) {
-          setAreOrders(true);
-          setOrders(orders.reverse());
-        } else {
+        try {
+          const response = await fetch(`/api/orders/${userId}`);
+          const { orders, error } = await response.json();
+          if (response.ok && orders && orders.length > 0) {
+            setAreOrders(true);
+            setOrders(orders.reverse());
+          } else {
+            setAreOrders(false);
+          }
+        } catch (error) {
           setAreOrders(false);
+        } finally {
+          setLoading(false);
         }
-        setLoading(false);
       };
       fetchOrd();
     }
