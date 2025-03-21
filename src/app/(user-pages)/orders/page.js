@@ -10,6 +10,7 @@ import { fetchUserOrders } from "../../../../db/dbFunctions";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import OrderedProductList from "../../../../components/ordersPage/OrderedProductList";
+import Link from "next/link";
 
 //helper function
 function convertDate(input) {
@@ -35,29 +36,40 @@ function convertDate(input) {
 export default function OrdersPage() {
   const { userId } = useAuth();
   const [orders, setOrders] = useState();
+  const [areOrders, setAreOrders] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (userId) {
       const fetchOrd = async () => {
-        const response = await fetchUserOrders({ userId });
-        setOrders(response.reverse());
+        setLoading(true);
+        const { orders, error } = await fetchUserOrders({ userId });
+        if (orders && orders.length > 0) {
+          setAreOrders(true);
+          setOrders(orders.reverse());
+        } else {
+          setAreOrders(false);
+        }
+        setLoading(false);
       };
       fetchOrd();
     }
-    ({ userId });
   }, [userId]);
 
   return (
     <div className="w-full min-h-screen px-5 py-10 bg-gray-100 flex flex-col">
-      {/* <p>{JSON.stringify(userId)}</p> */}
-      {/* {userId ? <p>{JSON.stringify(orders)}</p> : null} */}
-      {orders ? (
+      {loading ? (
+        <div className="w-full flex justify-center items-center min-h-[200px]">
+          <p className="text-lg text-gray-600">Loading your orders...</p>
+        </div>
+      ) : areOrders && orders.length > 0 ? (
         <div className="w-full sm:max-w-[900px] flex flex-col bg-white px-4 py-4 rounded-lg shadow-md place-self-center">
           <h2 className="px-2 text-lg font-semibold border-b-2 border-gray-300 pb-2 mb-3">
             Orders
           </h2>
 
           {/* Orders List */}
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-4 text-sm sm:text-base lg:text-lg">
             {orders.map((order, index) => (
               <div
                 key={index}
@@ -107,7 +119,18 @@ export default function OrdersPage() {
             ))}
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="w-full self-center max-w-[700px] flex flex-col items-center justify-center py-10 bg-white rounded-lg shadow-md">
+          <p className="text-xl font-semibold text-gray-600 pb-10 text-center">
+            It looks like you haven&apos;t placed any orders yet.
+          </p>
+          <Link href="/products">
+            <button className="px-3 py-1 bg-blue-800 text-white rounded text-base sm:text-lg">
+              Continue Shopping
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
