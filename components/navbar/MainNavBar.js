@@ -7,6 +7,7 @@ import SearchFilter from "../filters/SearchFilter";
 import {
   SignedIn,
   SignedOut,
+  SignIn,
   SignInButton,
   SignOutButton,
 } from "@clerk/nextjs";
@@ -47,9 +48,9 @@ export default async function NavBar() {
         {/* Auth and Cart Section */}
         <div className="flex items-center space-x-4">
           <SignedOut>
-            <SignInButton className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200">
+            <SignIn className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200">
               Sign In
-            </SignInButton>
+            </SignIn>
           </SignedOut>
 
           <SignedIn>
