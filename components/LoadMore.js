@@ -74,7 +74,7 @@ function LoadMore() {
   return (
     <>
       {products.length > 0 && (
-        <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center p-3 pt-3">
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center p-3 pt-0 ">
           {products.map((product) => (
             <SingleProductCard key={product.id} product={product} />
           ))}

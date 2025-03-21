@@ -101,7 +101,7 @@ export default function PopularProductsSwiper() {
                   {product.title}
                 </h2>
 
-                <button className="text-sm sm:text-base bg-white text-blue-900 border border-blue-900 w-full py-1 rounded-md hover:bg-blue-900 hover:text-white transition duration-300 hover:cursor-pointer">
+                <button className="text-sm sm:text-base bg-white text-blue-900 border border-blue-900 w-full py-1 rounded-md hover:bg-blue-900 hover:text-white transition duration-300 hover:cursor-pointer transform hover:-translate-y-[1px]">
                   SHOP NOW
                 </button>
               </div>

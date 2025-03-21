@@ -62,7 +62,8 @@ export default function SingleProductCard({ product }) {
           </div>
           <div className="w-full flex justify-center items-center">
             <button
-              className="w-full py-2 px-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 hover:cursor-pointer duration-300 hover:border-blue-900 hover:border  "
+              className="w-full py-2 px-2 bg-blue-900 text-white hover:cursor-pointer hover:border duration-100 hover:bg-blue-800
+              transform hover:-translate-y-[1px]"
               onClick={() =>
                 setCartItems((prev) => updateProductQuantity(prev, product))
               }

@@ -75,7 +75,7 @@ export default function CategorySwiper() {
                     {categoryName}
                   </h2>
 
-                  <button className="text-sm sm:text-base bg-blue-900 text-white w-full py-1 rounded-md cursor-pointer">
+                  <button className="text-sm sm:text-base bg-blue-900 text-white w-full py-1 rounded-md hover:cursor-pointer transform hover:-translate-y-[1px]">
                     SHOP NOW
                   </button>
                 </div>
