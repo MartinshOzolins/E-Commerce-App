@@ -19,8 +19,11 @@ export default function CartIcon() {
     // On page load, checks if there are saved items
     const storedItems = localStorage.getItem("items");
     console.log(storedItems);
-    const parsedItems = storedItems ? JSON.parse(storedItems) : [];
+    console.log(storedItems && storedItems.length > 0);
+    const parsedItems =
+      storedItems && storedItems.length > 0 ? JSON.parse(storedItems) : [];
 
+    console.log(parsedItems);
     if (cartItems.length === 0) {
       // Updates cart from storage
       setCartItems(parsedItems);
