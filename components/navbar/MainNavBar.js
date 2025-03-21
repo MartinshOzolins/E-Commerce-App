@@ -35,7 +35,7 @@ export default async function NavBar() {
       {/* Navbar for Larger Screens */}
       <div className="w-full h-20 flex items-center justify-between px-6 hidden sm:flex">
         <Link href="/" className="w-28">
-          <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold pr-2">
+          <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold pr-4">
             GoodsHub
           </h1>
         </Link>
