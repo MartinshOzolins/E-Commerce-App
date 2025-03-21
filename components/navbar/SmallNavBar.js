@@ -5,7 +5,6 @@ import { useState } from "react";
 // mui components
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 // components
 import CategoryFilter from "../filters/CategoryFilter";
@@ -65,7 +64,7 @@ export default function SmallNavBar({ categories }) {
           onClick={closeModalOnClickOutside} // Close modal on click outside
         >
           <div
-            className="bg-white p-6 rounded-lg w-full h-full relative flex flex-col space-y-4 items-start"
+            className="bg-white p-6 w-full h-full relative flex flex-col space-y-4 items-start"
             onClick={(e) => e.stopPropagation()} // Prevent closing on inner modal click
           >
             <div className="flex flex-row w-full justify-between items-center">
@@ -125,7 +124,7 @@ export default function SmallNavBar({ categories }) {
 
               <div className="flex flex-col space-y-2">
                 <SignedOut>
-                  <SignInButton className="hover:cursor-pointer">
+                  <SignInButton className="hover:cursor-pointer text-left">
                     Sign In
                   </SignInButton>
                 </SignedOut>
