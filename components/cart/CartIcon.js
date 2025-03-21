@@ -18,18 +18,12 @@ export default function CartIcon() {
   useEffect(() => {
     // On page load, checks if there are saved items
     const storedItems = localStorage.getItem("items");
-    console.log(JSON.parse(storedItems));
-    console.log(
-      "more than zero",
-      storedItems && storedItems.length > 0,
-      storedItems.length
-    );
-    const parsedItems =
-      storedItems && storedItems.length > 0 ? JSON.parse(storedItems) : [];
 
-    console.log(parsedItems);
-    if (cartItems.length === 0) {
-      // Updates cart from storage
+    // Parses the items once and check if they exist and have a length greater than 0
+    const parsedItems = storedItems ? JSON.parse(storedItems) : [];
+
+    if (parsedItems.length > 0 && cartItems.length === 0) {
+      // Updates cart from storage if it's empty
       setCartItems(parsedItems);
     }
   }, []);
