@@ -20,6 +20,7 @@ import { validateCheckoutInput } from "../../../../actions/actions";
 
 // Next.js functions
 import { redirect } from "next/navigation";
+import { red } from "@mui/material/colors";
 
 export default function CheckoutPage() {
   // User states
@@ -132,7 +133,11 @@ export default function CheckoutPage() {
   }
 
   if (cartItems.length === 0) {
-    redirect("/");
+    const storedItems = localStorage.getItem("items");
+    const parsedItems = storedItems ? JSON.parse(storedItems) : [];
+    if (parsedItems.length === 0) {
+      redirect("/");
+    }
   }
 
   // converts deliveryDate to needed format
