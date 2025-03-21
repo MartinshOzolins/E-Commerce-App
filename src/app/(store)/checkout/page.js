@@ -1,7 +1,7 @@
 "use client";
 
 // Clerk func
-import { RedirectToSignIn, SignIn, useUser } from "@clerk/nextjs";
+import { RedirectToSignIn, useUser } from "@clerk/nextjs";
 
 // Cart context
 import { useCartContext } from "../../../../contexts/CartContextProvider";
@@ -123,7 +123,12 @@ export default function CheckoutPage() {
   }
 
   if (!user) {
-    return <SignIn />;
+    return (
+      <RedirectToSignIn
+        signInFallbackRedirectUrl="/checkout"
+        redirect_url="/checkout"
+      />
+    );
   }
 
   if (cartItems.length === 0) {
