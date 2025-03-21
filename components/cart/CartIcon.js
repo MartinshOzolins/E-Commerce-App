@@ -18,6 +18,7 @@ export default function CartIcon() {
   useEffect(() => {
     // On page load, checks if there are saved items
     const storedItems = localStorage.getItem("items");
+    console.log(storedItems);
     const parsedItems = storedItems ? JSON.parse(storedItems) : [];
 
     if (cartItems.length === 0) {
