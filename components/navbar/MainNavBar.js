@@ -35,7 +35,7 @@ export default async function NavBar() {
       {/* Navbar for Larger Screens */}
       <div className="w-full h-20 flex items-center justify-between px-6 hidden sm:flex">
         <Link href="/" className="w-28">
-          <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold">
+          <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold pr-2">
             GoodsHub
           </h1>
         </Link>
@@ -55,7 +55,7 @@ export default async function NavBar() {
 
           <SignedIn>
             <div className="flex items-center space-x-3">
-              <SignOutButton className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200">
+              <SignOutButton className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200 hover:cursor-pointer">
                 Sign Out
               </SignOutButton>
               <Link

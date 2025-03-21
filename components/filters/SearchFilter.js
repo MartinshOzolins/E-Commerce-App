@@ -31,7 +31,7 @@ export default function SearchFilter({ searchIconSize }) {
       >
         <input
           type="text"
-          className="border border-gray-400 rounded-l-md px-3 py-2 w-full h-10 outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
+          className="border border-gray-400 rounded-l-md px-3 py-2 w-full h-10 outline-none "
           style={{ maxWidth: "480px" }}
           placeholder="Search products..."
           name="input"
@@ -40,7 +40,7 @@ export default function SearchFilter({ searchIconSize }) {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-gray-400 text-white p-2 rounded-r-md hover:bg-gray-500 transition duration-200"
+          className="bg-gray-400 text-white p-2 rounded-r-md hover:bg-gray-500 transition duration-200 hover:cursor-pointer"
         >
           <SearchIcon sx={{ width: `${searchIconSize}` }} className="w-full" />
         </button>
