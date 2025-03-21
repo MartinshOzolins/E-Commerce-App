@@ -123,7 +123,12 @@ export default function CheckoutPage() {
   }
 
   if (!user) {
-    return <RedirectToSignIn />;
+    return (
+      <RedirectToSignIn
+        signInFallbackRedirectUrl="/checkout"
+        redirect_url="/checkout"
+      />
+    );
   }
 
   if (cartItems.length === 0) {
