@@ -1,4 +1,4 @@
-//# Catalog page (Product Listings)
+// Catalog page (Product Listings)
 
 // api functions
 import {
@@ -28,6 +28,7 @@ export default async function ProductCatalog({ params, searchParams }) {
   }
 
   // if inputSearchValue exists, we use input based fetching, otherwise fetchProducts based on params and sorting filters
+  // fetches all products based on urlParams
   const { products, error } = inputSearchValue
     ? await fetchInputSearch({
         input: inputSearchValue,
@@ -39,8 +40,6 @@ export default async function ProductCatalog({ params, searchParams }) {
         sortBy: sortByValue || null,
         skipped: 0,
       });
-
-  // fetches all products based on urlParams
 
   return (
     <>

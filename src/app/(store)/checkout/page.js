@@ -2,25 +2,16 @@
 
 // Clerk func
 import { RedirectToSignIn, useUser } from "@clerk/nextjs";
-
 // Cart context
 import { useCartContext } from "../../../../contexts/CartContextProvider";
-
 // React
 import { useState, useActionState, useEffect } from "react";
-
-// Next.js components
-import Link from "next/link";
-
 // Components
 import AddressForm from "../../../../components/forms/AddressForm";
-
 // utils
 import { validateCheckoutInput } from "../../../../actions/actions";
-
 // Next.js functions
 import { redirect } from "next/navigation";
-import { red } from "@mui/material/colors";
 
 export default function CheckoutPage() {
   // User states

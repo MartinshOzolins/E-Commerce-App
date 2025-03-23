@@ -1,10 +1,7 @@
-//# Middleware for authentication (Admin/User)
-
 import { auth, clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware(async (auth, req) => {
   // const { userId } = auth();
-  // console.log(userId);
 });
 
 export const config = {

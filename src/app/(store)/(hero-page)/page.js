@@ -1,4 +1,4 @@
-//# HERO page with Popular Categories & Trending Items (Server)
+// HERO page with Popular Categories & Trending Items (Server)
 
 import CategorySwiper from "../../../../components/heroPage/CategorySwiper";
 import PopularProductsSwiper from "../../../../components/heroPage/PopularProductsSwiper";
