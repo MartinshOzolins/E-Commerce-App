@@ -63,7 +63,7 @@ export default function CheckoutPage() {
   };
 
   // Handles card expiry date info input change
-  const [expiry, setExpiry] = useState("1225");
+  const [expiry, setExpiry] = useState("12/25");
 
   const handleExpiryChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); // removes non-digit chars
