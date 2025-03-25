@@ -25,23 +25,23 @@ export default function CheckoutPage() {
 
   // Form state for address and billing address
   const [address, setAddress] = useState({
-    houseInfo: "",
-    streetName: "",
-    town: "",
-    city: "",
-    county: "",
-    postcode: "",
-    country: "",
+    houseInfo: "123 Random St",
+    streetName: "Main Street",
+    town: "Randomtown",
+    city: "Randomcity",
+    county: "Randomshire",
+    postcode: "RND 123",
+    country: "Randomland",
   });
   const [billingAddress, setBillingAddress] = useState({
     isBillingAddressTheSame: sameAsDelivery,
-    houseInfo: "",
-    streetName: "",
-    town: "",
-    city: "",
-    county: "",
-    postcode: "",
-    country: "",
+    houseInfo: "123 Random St",
+    streetName: "Main Street",
+    town: "Randomtown",
+    city: "Randomcity",
+    county: "Random",
+    postcode: "RND 123",
+    country: "Randomland",
   });
 
   // Handles address input change
