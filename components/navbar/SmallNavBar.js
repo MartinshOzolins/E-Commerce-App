@@ -73,7 +73,7 @@ export default function SmallNavBar({ categories }) {
                 className="hover:cursor-pointer"
                 onClick={() => toggleModal(false)}
               >
-                <h1 className="text-2xl sm:text-3xl text-blue-900 font-semibold">
+                <h1 className="text-2xl sm:text-3xl text-blue-900  caveat-italic">
                   GoodsHub
                 </h1>
               </Link>

@@ -86,7 +86,7 @@ export default function CategorySwiper() {
                   className="object-contain h-2/3 w-full"
                 />
                 <div className="w-full h-full flex flex-col items-center justify-end px-5 sm:px-2 md:px-5 pb-2 md:pb-3">
-                  <h2 className="text-black font-semibold text-sm sm:text-base capitalize truncate overflow-hidden whitespace-nowrap w-full text-center">
+                  <h2 className="text-black font-semibold text-sm sm:text-lg capitalize truncate overflow-hidden whitespace-nowrap w-full text-center">
                     {categoryName}
                   </h2>
                 </div>

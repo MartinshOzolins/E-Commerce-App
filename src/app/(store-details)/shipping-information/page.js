@@ -3,7 +3,7 @@
 export default function ShippingInformationPage() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center pt-10 px-4">
-      <div className="max-w-[700px] text-center">
+      <div className="max-w-[700px] text-center ">
         <h1 className="text-4xl font-semibold text-gray-800">
           Shipping Information
         </h1>

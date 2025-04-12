@@ -152,7 +152,10 @@ export default function CheckoutPage() {
   return (
     <>
       <div className="flex flex-col w-full bg-white h-10 justify-center pl-2 fixed top-0 z-20">
-        <h1 className="text-2xl hover:cursor-pointer" onClick={handleRedirect}>
+        <h1
+          className="text-2xl hover:cursor-pointer caveat-italic"
+          onClick={handleRedirect}
+        >
           GoodsHub
         </h1>
       </div>
