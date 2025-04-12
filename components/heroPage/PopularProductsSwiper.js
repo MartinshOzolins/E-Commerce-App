@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 // Import Swiper core and required modules
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -57,11 +59,24 @@ const products = [
 ];
 
 export default function PopularProductsSwiper() {
+  const swiperRef = useRef(null);
+
+  const handleNext = () => {
+    if (swiperRef.current) swiperRef.current.swiper.slideNext();
+  };
+
+  const handlePrev = () => {
+    if (swiperRef.current) swiperRef.current.swiper.slidePrev();
+  };
   return (
     <div className="relative w-full max-w-[1440px] mx-auto py-6 px-3 md:px-5">
       <Swiper
-        modules={[Navigation, Autoplay]}
-        navigation
+        ref={swiperRef}
+        modules={[Autoplay]}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: true,
+        }}
         spaceBetween={20}
         className="w-full"
         breakpoints={{
@@ -109,6 +124,49 @@ export default function PopularProductsSwiper() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className="absolute top-1/2 left-0 z-10">
+        <button
+          onClick={handlePrev}
+          className="py-2 pl-1 text-gray-400 hover:text-gray-500 transform -translate-y-1/2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-9 md:size-11"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div className="absolute top-1/2 right-0 z-10">
+        <button
+          onClick={handleNext}
+          className="py-2 pr-1 text-gray-400 hover:text-gray-500 transform -translate-y-1/2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-9 md:size-11"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }

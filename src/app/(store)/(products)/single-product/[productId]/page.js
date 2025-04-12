@@ -51,24 +51,27 @@ export default async function SingleProductDetails({ params }) {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col w-full pt-5 px-2">
-        <h2 className="font-semibold">Product Details:</h2>
-        <p className="text-sm text-gray-700">Brand: {product.brand}</p>
-        <p className="text-sm text-gray-700">{product.description}</p>
+        <h2 className="font-semibold lg:text-lg">Product Details:</h2>
+        <p className="text-sm lg:text-lg text-gray-700">{product.brand}</p>
+        <p className="text-sm text-gray-700 lg:text-base">
+          {product.description}
+        </p>
       </div>
-      <div className="w-full flex flex-col px-2 pt-4">
-        <h2 className="font-semibold">Overall Rating:</h2>
-        <div className="flex items-center pb-2">
-          <p className="text-3xl font-bold">{rating}</p>
+      <div className="w-full flex flex-col px-2 pt-4 ">
+        <h2 className="font-semibold lg:text-lg">Overall Rating:</h2>
+        <div className="flex items-center pb-2 ">
+          <p className="text-3xl lg:text-4xl font-bold">{rating}</p>
           <div className="flex flex-col items-start pl-2">
             <Rating
-              size="small"
+              size="small md:medium"
               readOnly
               value={rating}
               precision={0.5}
               max={5}
             />
-            <p className="text-xs font-semibold">
+            <p className="text-xs font-semibold lg:text-base">
               {product?.reviews.length > 1
                 ? `${product?.reviews.length} reviews`
                 : `${product?.reviews.length} review`}
@@ -88,11 +91,13 @@ export default async function SingleProductDetails({ params }) {
                     precision={0.5}
                     max={5}
                   />
-                  <p className="text-sm text-gray-700 mt-1">{review.comment}</p>
-                  <p className="text-xs text-gray-500 font-semibold">
+                  <p className="text-sm lg:text-base text-gray-700 mt-1">
+                    {review.comment}
+                  </p>
+                  <p className="text-xs lg:text-base text-gray-500 font-semibold">
                     {review.reviewerName.split(" ")[0]}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs lg:text-base text-gray-500">
                     {new Date(review.date).toLocaleDateString()}
                   </p>
                 </div>

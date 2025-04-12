@@ -10,7 +10,7 @@ export default function CategoryFilter({ categories, toggleModal }) {
     <div className="relative w-47 bottom-1 flex top-[0.4px]">
       <select
         id="select"
-        className=" w-full pr-10 transition duration-300 ease-in-out cursor-pointer appearance-none focus:outline-none select-category select-category-small"
+        className=" w-full pr-3 transition duration-300 ease-in-out cursor-pointer appearance-none focus:outline-none select-category select-category-small"
         onChange={(e) => {
           e.target.value === ""
             ? null
@@ -27,7 +27,7 @@ export default function CategoryFilter({ categories, toggleModal }) {
           </option>
         ))}
       </select>
-      <ArrowDropDownIcon className="absolute top-1/2 right-4 transform -translate-y-1/2 text-blue-900 pointer-events-none" />
+      <ArrowDropDownIcon className="absolute top-1/2 -right-1 transform -translate-y-1/2 text-blue-900 pointer-events-none" />
     </div>
   );
 }

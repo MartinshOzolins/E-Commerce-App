@@ -27,7 +27,6 @@ export default function SingleProductCard({ product }) {
 
   return (
     <div className="flex flex-col w-full h-96 border border-gray-300 p-2 max-w-[280px]">
-      {/* Make only image & title clickable */}
       <Link href={`/single-product/${product.id}`} className="h-1/2 relative">
         <Image
           src={product.thumbnail}
@@ -63,7 +62,7 @@ export default function SingleProductCard({ product }) {
           <div className="w-full flex justify-center items-center">
             <button
               className="w-full py-2 px-2 bg-blue-900 text-white hover:cursor-pointer hover:border duration-100 hover:bg-blue-800
-              transform hover:-translate-y-[1px]"
+              transform hover:-translate-y-[1px] rounded"
               onClick={() =>
                 setCartItems((prev) => updateProductQuantity(prev, product))
               }
