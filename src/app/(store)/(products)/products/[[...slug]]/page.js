@@ -1,5 +1,3 @@
-// Catalog page (Product Listings)
-
 // api functions
 import {
   fetchInputSearch,

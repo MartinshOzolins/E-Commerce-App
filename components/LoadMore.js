@@ -13,13 +13,13 @@ function LoadMore() {
   const [products, setProducts] = useState([]);
   const [isNext, setIsNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [productsSkipped, setProductsSkipped] = useState(0); // State instead of global variable
+  const [productsSkipped, setProductsSkipped] = useState(0);
 
   // Extracts existing URL params and search params
   const { slug } = useParams();
   const searchParams = useSearchParams();
 
-  // Fetch function moved outside useEffect
+  // Fetch function
   const fetchFunction = async () => {
     if (!isNext || isLoading) return; // Prevents multiple requests
 
@@ -69,7 +69,7 @@ function LoadMore() {
     if (inView) {
       fetchFunction();
     }
-  }, [inView]); // Triggers only when `inView` changes
+  }, [inView]); // Triggers only when 'inView' changes
 
   return (
     <>
