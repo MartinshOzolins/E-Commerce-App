@@ -17,7 +17,11 @@ export default function SwiperComponent({ product }) {
         modules={[Navigation, Pagination, Autoplay]}
         navigation
         pagination={{ type: "progressbar", clickable: true }}
-        autoplay={{ delay: 3000 }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: true,
+          pauseOnMouseEnter: true,
+        }}
         className="w-full h-[400px]"
       >
         {product.images.map((img, index) => (
