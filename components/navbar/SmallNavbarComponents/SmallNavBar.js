@@ -7,21 +7,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 // components
-import CategoryFilter from "../../filters/CategoryFilter";
 import SearchFilter from "../../filters/SearchFilter";
 import CartIcon from "../../cart/CartIcon";
-
-// Clerk
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
+import UserAuthOptions from "./UserAuthOptions";
+import MenuOptions from "./MenuOptions";
 
 // Next.js components
 import Link from "next/link";
-import UserAuthOptions from "./UserAuthOptions";
 
 export default function SmallNavBar({ categories }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -89,38 +81,7 @@ export default function SmallNavBar({ categories }) {
 
             {/* Menu Options */}
             <div className="flex flex-col space-y-3 text-blue-900 text-md select-category-small">
-              <CategoryFilter
-                categories={categories}
-                toggleModal={toggleModal}
-              />
-              <Link
-                href="/products"
-                className="hover:cursor-pointer"
-                onClick={() => toggleModal(false)}
-              >
-                Browse All Products
-              </Link>
-              <Link
-                href="/shipping-information"
-                className="hover:cursor-pointer"
-                onClick={() => toggleModal(false)}
-              >
-                Shipping
-              </Link>
-              <Link
-                href="/return-policy"
-                className="hover:cursor-pointer"
-                onClick={() => toggleModal(false)}
-              >
-                Return Policy
-              </Link>
-              <Link
-                href="/contact"
-                className="hover:cursor-pointer"
-                onClick={() => toggleModal(false)}
-              >
-                Contact Us
-              </Link>
+              <MenuOptions categories={categories} toggleModal={toggleModal} />
 
               {/* User Auth and Profile buttons */}
               <UserAuthOptions onClick={() => toggleModal(false)} />
