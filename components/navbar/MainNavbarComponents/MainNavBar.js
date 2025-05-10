@@ -1,24 +1,17 @@
 // # Server Component (Handles auth state & cart updates)
 
-// Clerk components
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
-
 // Next.js components
 import Link from "next/link";
 
 // api func
-import { fetchCategories } from "../../utils/fetchFunctions";
+import { fetchCategories } from "../../../utils/fetchFunctions";
 
 // components
-import SmallNavBar from "./SmallNavbarComponents/SmallNavBar";
-import CategoryFilter from "../filters/CategoryFilter";
-import CartIcon from "../cart/CartIcon";
-import SearchFilter from "../filters/SearchFilter";
+import SmallNavBar from "../SmallNavbarComponents/SmallNavBar";
+import CategoryFilter from "../../filters/CategoryFilter";
+import CartIcon from "../../cart/CartIcon";
+import SearchFilter from "../../filters/SearchFilter";
+import UserAuthOptions from "./UserAuthOptions";
 
 export default async function NavBar() {
   // fetch available categories
@@ -44,25 +37,8 @@ export default async function NavBar() {
 
         {/* Auth and Cart Section */}
         <div className="flex items-center space-x-4">
-          <SignedOut>
-            <SignInButton className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200">
-              Sign In
-            </SignInButton>
-          </SignedOut>
-
-          <SignedIn>
-            <div className="flex items-center space-x-3">
-              <SignOutButton className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200 hover:cursor-pointer">
-                Sign Out
-              </SignOutButton>
-              <Link
-                href="/user-profile"
-                className="text-sm sm:text-base md:text-lg hover:text-blue-700 transition duration-200"
-              >
-                Profile
-              </Link>
-            </div>
-          </SignedIn>
+          {/* Auth options and User button */}
+          <UserAuthOptions />
 
           {/* Cart Icon */}
           <CartIcon />

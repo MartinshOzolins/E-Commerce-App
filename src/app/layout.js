@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import MainNavBar from "../../components/navbar/MainNavBar";
+import MainNavBar from "../../components/navbar/MainNavbarComponents/MainNavBar";
 import "./globals.css";
 import CartContextProvider from "../../contexts/CartContextProvider";
 import Footer from "../../components/static/Footer";

@@ -1,3 +1,5 @@
+"use client";
+
 // Clerk
 import {
   SignedIn,
