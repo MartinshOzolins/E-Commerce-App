@@ -7,7 +7,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 // components
-import CategoryFilter from "../filters/CategoryFilter";
+import CategoryFilter from "../../filters/CategoryFilter";
+import SearchFilter from "../../filters/SearchFilter";
+import CartIcon from "../../cart/CartIcon";
+
 // Clerk
 import {
   SignedIn,
@@ -18,20 +21,17 @@ import {
 
 // Next.js components
 import Link from "next/link";
-import SearchFilter from "../filters/SearchFilter";
-
-// components
-import CartIcon from "../cart/CartIcon";
+import UserAuthOptions from "./UserAuthOptions";
 
 export default function SmallNavBar({ categories }) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Toggle the modal state when the menu icon is clicked
+  // Toggles the modal state when the menu icon is clicked
   const toggleModal = (action) => {
     setModalOpen(action);
   };
 
-  // Close modal when clicking outside of it
+  // Closes modal when clicking outside of it
   const closeModalOnClickOutside = (e) => {
     if (e.target === e.currentTarget) {
       setModalOpen(false);
@@ -61,11 +61,11 @@ export default function SmallNavBar({ categories }) {
       {modalOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center sm:hidden"
-          onClick={closeModalOnClickOutside} // Close modal on click outside
+          onClick={closeModalOnClickOutside} // Closes modal on click outside
         >
           <div
             className="bg-white p-6 w-full h-full relative flex flex-col space-y-4 items-start"
-            onClick={(e) => e.stopPropagation()} // Prevent closing on inner modal click
+            onClick={(e) => e.stopPropagation()} // Prevents closing on inner modal click
           >
             <div className="flex flex-row w-full justify-between items-center">
               <Link
@@ -122,28 +122,8 @@ export default function SmallNavBar({ categories }) {
                 Contact Us
               </Link>
 
-              <div className="flex flex-col space-y-2">
-                <SignedOut>
-                  <SignInButton className="hover:cursor-pointer text-left">
-                    Sign In
-                  </SignInButton>
-                </SignedOut>
-                <SignedIn>
-                  <SignOutButton
-                    className="hover:cursor-pointer text-left"
-                    onClick={() => toggleModal(false)}
-                  >
-                    Sign Out
-                  </SignOutButton>
-                  <Link
-                    href="/user-profile"
-                    className="hover:cursor-pointer"
-                    onClick={() => toggleModal(false)}
-                  >
-                    Profile
-                  </Link>
-                </SignedIn>
-              </div>
+              {/* User Auth and Profile buttons */}
+              <UserAuthOptions onClick={() => toggleModal(false)} />
             </div>
           </div>
         </div>

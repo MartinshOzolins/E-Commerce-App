@@ -1,13 +1,9 @@
 // # Server Component (Handles auth state & cart updates)
 
-// components
-import SearchFilter from "../filters/SearchFilter";
-
 // Clerk components
 import {
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   SignOutButton,
 } from "@clerk/nextjs";
@@ -19,9 +15,10 @@ import Link from "next/link";
 import { fetchCategories } from "../../utils/fetchFunctions";
 
 // components
-import SmallNavBar from "./SmallNavBar";
+import SmallNavBar from "./SmallNavbarComponents/SmallNavBar";
 import CategoryFilter from "../filters/CategoryFilter";
 import CartIcon from "../cart/CartIcon";
+import SearchFilter from "../filters/SearchFilter";
 
 export default async function NavBar() {
   // fetch available categories
