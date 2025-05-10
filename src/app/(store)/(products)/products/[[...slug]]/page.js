@@ -6,7 +6,7 @@ import {
 import LoadMore from "../../../../../../components/LoadMore";
 
 //components
-import SortingFilters from "../../../../../../components/filters/SortingFilters";
+import SortingFilters from "../../../../../../components/filters/SortingFiltersComponents/SortingFilters";
 import SingleProductCard from "../../../../../../components/SingleProductCard";
 
 export default async function ProductCatalog({ params, searchParams }) {

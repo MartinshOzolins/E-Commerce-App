@@ -1,9 +1,16 @@
 "use client";
+
+// MUI icons
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useRouter } from "next/navigation";
+
+// React
 import { useEffect, useState } from "react";
 
-// Will use revalidatePath for catalog
+// Next.js
+import { useRouter } from "next/navigation";
+
+// components
+import SortingOption from "./SortingOption";
 
 export default function SortingFilters({ currParams, currSearchParams }) {
   const [currSorting, setCurrentSorting] = useState("?sortBy=most-relevant");
@@ -36,6 +43,15 @@ export default function SortingFilters({ currParams, currSearchParams }) {
     }
   };
 
+  const sortingOptions = [
+    { label: "Sort: Most Relevant", value: "sortBy=most-relevant" },
+    { label: "Price Low to High", value: "sortBy=price-low-to-high" },
+    { label: "Price High to Low", value: "sortBy=price-high-to-low" },
+    { label: "Lowest Rated", value: "sortBy=lowest-rating" },
+    { label: "Top Rated", value: "sortBy=highest-rating" },
+    { label: "Newest", value: "sortBy=createdAt" },
+  ];
+
   return (
     <div className="w-full flex justify-start pt-10 pl-3">
       <div className="relative w-45">
@@ -45,12 +61,13 @@ export default function SortingFilters({ currParams, currSearchParams }) {
           onChange={(e) => handleClick(e)}
           value={currSorting}
         >
-          <option value="sortBy=most-relevant">Sort: Most Relevant</option>
-          <option value="sortBy=price-low-to-high">Price Low to High</option>
-          <option value="sortBy=price-high-to-low">Price High to Low</option>
-          <option value="sortBy=lowest-rating">Lowest Rated</option>
-          <option value="sortBy=highest-rating">Top Rated</option>
-          <option value="sortBy=createdAt">Newest</option>
+          {sortingOptions.map((option) => (
+            <SortingOption
+              key={option.value}
+              label={option.label}
+              value={option.value}
+            />
+          ))}
         </select>
         <KeyboardArrowDownIcon className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
       </div>
