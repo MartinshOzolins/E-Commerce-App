@@ -8,7 +8,7 @@ import { fetchCategories } from "../../../utils/fetchFunctions";
 
 // components
 import SmallNavBar from "../SmallNavbarComponents/SmallNavBar";
-import CategoryFilter from "../../filters/CategoryFilter";
+import NavLinks from "./NavLinks";
 import CartIcon from "../../cart/CartIcon";
 import SearchFilter from "../../filters/SearchFilter";
 import UserAuthOptions from "./UserAuthOptions";
@@ -46,33 +46,7 @@ export default async function NavBar() {
       </div>
 
       {/* Navbar Links Section */}
-      <div className="flex flex-row w-full justify-start pl-4 pt-2 space-x-5 hidden sm:flex text-blue-900 font-semibold ">
-        <CategoryFilter categories={categories} />
-        <Link
-          href="/products"
-          className="hover:cursor-pointer hover:text-blue-700 transition duration-200 select-category"
-        >
-          Browse All Products
-        </Link>
-        <Link
-          href="/shipping-information"
-          className="hover:cursor-pointer hover:text-blue-700 transition duration-200 select-category"
-        >
-          Shipping
-        </Link>
-        <Link
-          href="/return-policy"
-          className="hover:cursor-pointer hover:text-blue-700 transition duration-200 select-category"
-        >
-          Return Policy
-        </Link>
-        <Link
-          href="/contact"
-          className="hover:cursor-pointer hover:text-blue-700 transition duration-200 select-category"
-        >
-          Contact Us
-        </Link>
-      </div>
+      <NavLinks categories={categories} />
 
       {/* Subtle Divider */}
       <div className="h-[1px] bg-blue-100 w-full mt-3" />
