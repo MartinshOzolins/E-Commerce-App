@@ -62,8 +62,11 @@ export default function CheckoutPage() {
     }));
   };
 
-  // Handles card expiry date info input change
+  // Handles user info input change
   const [expiry, setExpiry] = useState("12/25");
+  const [cardHolder, setCardHolder] = useState("John Doe");
+  const [cardNumber, setCardNumber] = useState("4111 1111 1111 1111");
+  const [securityCode, setSecurityCode] = useState("123");
 
   const handleExpiryChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); // removes non-digit chars
@@ -261,7 +264,8 @@ export default function CheckoutPage() {
                     Card Holder
                   </label>
                   <input
-                    value="John Doe"
+                    value={cardHolder}
+                    onChange={(e) => setCardHolder(e.target.value)}
                     placeholder="Enter fake name (for demo purposes)"
                     type="text"
                     className="border px-2 py-1 rounded w-full"
@@ -274,8 +278,9 @@ export default function CheckoutPage() {
                     Card Number
                   </label>
                   <input
-                    value="4111 1111 1111 1111"
-                    placeholder="Enter random credit card number "
+                    value={cardNumber}
+                    onChange={(e) => setCardNumber(e.target.value)}
+                    placeholder="Enter random credit card number"
                     className="border px-2 py-1 rounded w-full"
                     name="cardNumber"
                     id="cardNumber"
@@ -304,12 +309,12 @@ export default function CheckoutPage() {
                     Security Code
                   </label>
                   <input
-                    type="number"
+                    value={securityCode}
+                    onChange={(e) => setSecurityCode(e.target.value)}
+                    placeholder="Enter fake security code (for demo purposes)"
                     className="border px-2 py-1 rounded w-full"
                     name="securityCode"
                     id="securityCode"
-                    value="123"
-                    placeholder="Enter fake security code (for demo purposes)"
                   />
                 </div>
                 <button
