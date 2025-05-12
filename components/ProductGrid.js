@@ -1,7 +1,5 @@
 // # Server Component for catalog grid
 
-// api functions
-import { fetchProducts } from "../utils/fetchFunctions";
 import LoadMore from "./LoadMore";
 
 //components

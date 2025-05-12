@@ -1,9 +1,7 @@
-// # Server Component (Handles auth state & cart updates)
-
 // Next.js components
 import Link from "next/link";
 
-// api func
+// api functions
 import { fetchCategories } from "../../../utils/fetchFunctions";
 
 // components

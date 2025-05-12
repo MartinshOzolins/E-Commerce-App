@@ -15,10 +15,10 @@ import { redirect } from "next/navigation";
 
 export default function CheckoutPage() {
   // User states
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { user } = useUser();
 
   // Cart states
-  const { cartItems, setCartItems } = useCartContext();
+  const { cartItems } = useCartContext();
 
   // State for confirming address and billing address
   const [sameAsDelivery, setSameAsDelivery] = useState(false);

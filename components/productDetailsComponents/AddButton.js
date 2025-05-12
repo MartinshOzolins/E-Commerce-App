@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-// context custom hook
+// context hook
 import { useCartContext } from "../../contexts/CartContextProvider";
 
 // helper function to check quantity and update cart proplery

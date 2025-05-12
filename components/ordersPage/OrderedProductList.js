@@ -1,9 +1,15 @@
 "use client";
 
+// utils
 import { fetchProduct } from "../../utils/fetchFunctions";
+
+// MUI components
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+
+// Next.js components
 import Image from "next/image";
+
 import { useEffect, useState } from "react";
 
 export default function OrderedProductList({ productsToFetch }) {

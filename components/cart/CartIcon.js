@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-// mui components
+// MUI components
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 // context hooks

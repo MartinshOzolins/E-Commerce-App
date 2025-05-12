@@ -1,4 +1,3 @@
-//# Server Component (Product Display)
 "use client";
 
 // Next.js components
@@ -22,8 +21,7 @@ export default function SingleProductCard({ product }) {
   const rating = fixRatingValue(String(product.rating));
 
   //  cart context
-  const { cartItems, setCartItems, isCartOpen, setIsCartOpen } =
-    useCartContext();
+  const { setCartItems } = useCartContext();
 
   return (
     <div className="flex flex-col w-full h-96 border border-gray-300 p-2 max-w-[280px]">
