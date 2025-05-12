@@ -8,8 +8,7 @@ import { updateProductQuantity } from "../../utils/quantityUtils";
 
 export default function AddButton({ product }) {
   //  cart context
-  const { cartItems, setCartItems, isCartOpen, setIsCartOpen } =
-    useCartContext();
+  const { setCartItems } = useCartContext();
 
   return (
     <button
