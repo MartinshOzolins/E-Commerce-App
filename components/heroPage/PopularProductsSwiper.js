@@ -12,6 +12,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 // Next.js components
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeftIcon, ArrowRightIcon } from "./ArrowIcons";
 
 const products = [
   {
@@ -125,20 +126,7 @@ export default function PopularProductsSwiper() {
           onClick={handlePrev}
           className="py-2 pl-1 text-gray-400 hover:text-gray-500 transform -translate-y-1/2"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-9 md:size-11"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
+          <ArrowLeftIcon className="size-9 md:size-11" />
         </button>
       </div>
 
@@ -147,20 +135,7 @@ export default function PopularProductsSwiper() {
           onClick={handleNext}
           className="py-2 pr-1 text-gray-400 hover:text-gray-500 transform -translate-y-1/2"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-9 md:size-11"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
+          <ArrowRightIcon className="size-9 md:size-11" />
         </button>
       </div>
     </div>
