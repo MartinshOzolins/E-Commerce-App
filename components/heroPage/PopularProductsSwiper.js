@@ -1,13 +1,14 @@
 "use client";
 
+// React
 import { useRef } from "react";
 
-// Import Swiper core and required modules
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 // Next.js components
 import Image from "next/image";
